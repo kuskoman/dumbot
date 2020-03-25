@@ -33,7 +33,11 @@ const streamSong = ({ song, connection, textChannel }: StreamSongOpts) => {
       streamSong({ song: nextSong, connection, textChannel });
     } else {
       Queue.isPlaying = false;
-      connection.disconnect();
+      setTimeout(() => {
+        if (Queue.isPlaying) {
+          connection.disconnect();
+        }
+      }, 50000);
     }
   });
 };
