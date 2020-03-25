@@ -26,12 +26,3 @@ export const getSongData = async (msg: Msg, query: string): Promise<Song> => {
   };
   return song;
 };
-
-export const handleJoin = (msg: Msg) => {
-  const channel = msg.member.voice.channel;
-  if (channel) {
-    channel.join();
-  } else {
-    msg.channel.send("You must be in a voice channel first");
-  }
-};

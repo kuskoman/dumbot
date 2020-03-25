@@ -8,11 +8,7 @@ export const handleMessage = (msg: Msg, content: string) => {
   };
 
   if (content.startsWith("p") || content.startsWith("play")) {
-    const query = content
-      .split(" ")
-      .slice(1)
-      .join(" ");
-    play(msg, query);
+    play(msg);
   } else if (content === "j" || content === "join") {
     join(msg);
   } else if (content === "l" || content === "leave") {

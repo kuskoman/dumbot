@@ -5,7 +5,11 @@ import { Song } from "./song";
 import ytdl from "ytdl-core";
 import Queue from "./queue";
 
-export const play = async (msg: Msg, query: string) => {
+export const play = async (msg: Msg) => {
+  const query = msg.content
+    .split(" ")
+    .slice(1)
+    .join(" ");
   joinChannel(msg);
   const song = await getSongData(msg, query);
   const textChannel = msg.channel;
@@ -21,13 +25,14 @@ export const play = async (msg: Msg, query: string) => {
 
 const streamSong = ({ song, connection, textChannel }: StreamSongOpts) => {
   Queue.isPlaying = true;
-  textChannel.send(`Now playing: ${song.name}`);
+  textChannel.send(`Now playing ${song.name}`);
 
   connection.play(ytdl(song.url)).on("finish", () => {
-    Queue.isPlaying = false;
     if (!Queue.isEmpty()) {
       const nextSong = Queue.getSong();
       streamSong({ song: nextSong, connection, textChannel });
+    } else {
+      Queue.isPlaying = false;
     }
   });
 };
