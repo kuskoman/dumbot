@@ -2,10 +2,43 @@ import { Msg } from "./types";
 import { scrapSongDataFromYT } from "./scraper";
 import Queue from "./queue";
 import ytdl from "ytdl-core";
-import { VoiceConnection, TextChannel, DMChannel } from "discord.js";
+import { TextChannel, DMChannel, VoiceConnection } from "discord.js";
 import { Song } from "./song";
 
 export const handleSong = async (msg: Msg, query: string) => {
+  joinChannel(msg);
+  const song = await getSongData(msg, query);
+  const textChannel = msg.channel;
+  const connection = msg.guild.voice.connection;
+
+  if (Queue.isEmpty() && !Queue.isPlaying) {
+    play({ song, textChannel, connection });
+  } else {
+    msg.channel.send(`Song ${song.name} added to queue`);
+    Queue.addSong(song);
+  }
+};
+
+const play = ({ song, connection, textChannel }: PlayOpts) => {
+  Queue.isPlaying = true;
+  textChannel.send(`Now playing: ${song.name}`);
+
+  connection.play(ytdl(song.url)).on("finish", () => {
+    Queue.isPlaying = false;
+    if (!Queue.isEmpty()) {
+      const nextSong = Queue.getSong();
+      play({ song: nextSong, connection, textChannel });
+    }
+  });
+};
+
+interface PlayOpts {
+  textChannel: TextChannel | DMChannel;
+  connection: VoiceConnection;
+  song: Song;
+}
+
+const joinChannel = (msg: Msg) => {
   const channel = msg.member.voice.channel;
   if (channel) {
     channel.join();
@@ -13,43 +46,18 @@ export const handleSong = async (msg: Msg, query: string) => {
     msg.channel.send("You must be in a voice channel first");
     return;
   }
+};
 
-  const connection = msg.guild.voice.connection;
+const getSongData = async (msg: Msg, query: string): Promise<Song> => {
   const { id, name } = await scrapSongDataFromYT(query);
-  const song: Song = {
+  const song = {
     name,
     id,
-    addedBy: msg.member.id
+    addedBy: msg.member.id,
+    url: `https://www.youtube.com/watch?v=${id}`
   };
-
-  if (Queue.isEmpty() && !Queue.isPlaying) {
-    play({ connection, song, textChannel: msg.channel });
-  } else {
-    msg.channel.send(`Song ${song.name} added to queueueueueu`);
-    Queue.addSong(song);
-  }
+  return song;
 };
-
-const play = ({ connection, textChannel, song }: PlayOpts) => {
-  Queue.isPlaying = true;
-  const url = `https://www.youtube.com/watch?v=${song.id}`;
-  textChannel.send(`Now playing: ${song.name}`);
-  connection.play(ytdl(url)).on("finish", () => {
-    Queue.isPlaying = false;
-    console.log(`Song ${song.name} finished playing.`);
-    if (!Queue.isEmpty) {
-      Queue.isPlaying = true;
-      const nextSong = Queue.getSong();
-      play({ connection, textChannel, song: nextSong });
-    }
-  });
-};
-
-interface PlayOpts {
-  connection: VoiceConnection;
-  textChannel: TextChannel | DMChannel;
-  song: Song;
-}
 
 export const handleJoin = (msg: Msg) => {
   const channel = msg.member.voice.channel;

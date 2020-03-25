@@ -5,4 +5,5 @@ export interface Song {
   name: string;
   id: YouTubeID;
   addedBy: DiscordID;
+  url: string;
 }
