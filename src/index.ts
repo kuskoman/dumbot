@@ -7,14 +7,20 @@ client.on("ready", () => {
   console.log(`Bot logged in as ${client.user.tag}`);
 });
 
+const handleSong = () => {
+  console.log("dupa");
+};
+
 const handleMessage = (msg: Message | PartialMessage) => {
   const content = msg.content.slice(prefix.length);
   const reply = (text: string) => {
     msg.channel.send(text);
   };
 
-  if (content === "sei") {
-    reply("cento");
+  if (content.startsWith("p") || content.startsWith("play")) {
+    handleSong();
+  } else if (content === "dziaduu") {
+    reply("ile zarabiasz");
   }
 };
 
