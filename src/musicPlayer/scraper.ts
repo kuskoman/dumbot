@@ -12,6 +12,9 @@ export const scrapSongDataFromYT = async (
   const videoLink = $("div > div > h3 > a", html).first();
   const name = videoLink.text();
   const href = videoLink.attr("href");
+  if (!href) {
+    throw new Error("Error while fetching song data.");
+  }
   const id = href.split("=")[1];
 
   return {

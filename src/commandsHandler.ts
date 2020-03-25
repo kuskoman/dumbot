@@ -1,5 +1,6 @@
 import { Msg } from "./types";
-import { handleSong, handleJoin, handlePause } from "./commands";
+import { play } from "./musicPlayer/play";
+import { join } from "./musicPlayer/join";
 
 export const handleMessage = (msg: Msg, content: string) => {
   const reply = (text: string) => {
@@ -11,13 +12,11 @@ export const handleMessage = (msg: Msg, content: string) => {
       .split(" ")
       .slice(1)
       .join(" ");
-    handleSong(msg, query);
+    play(msg, query);
   } else if (content === "j" || content === "join") {
-    handleJoin(msg);
+    join(msg);
   } else if (content === "l" || content === "leave") {
     msg.guild.voice.connection.disconnect();
-  } else if (content === "pause") {
-    handlePause(msg);
   } else if (content === "dziaduu") {
     reply("ile zarabiasz");
   }
