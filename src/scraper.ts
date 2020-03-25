@@ -10,17 +10,17 @@ export const scrapSongDataFromYT = async (
   const response = await fetch(baseLink + queryString);
   const html = await response.text();
   const videoLink = $("div > div > h3 > a", html).first();
-  const title = videoLink.text();
+  const name = videoLink.text();
   const href = videoLink.attr("href");
-  const link = `https://www.youtube.com${href}`;
+  const id = href.split("=")[1];
 
   return {
-    title,
-    link
+    name,
+    id
   };
 };
 
 export interface ScrapSongDataFromYTResponse {
-  link: string;
-  title: string;
+  id: string;
+  name: string;
 }
