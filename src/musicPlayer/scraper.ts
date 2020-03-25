@@ -6,7 +6,7 @@ const baseLink = "https://www.youtube.com/results?search_query=";
 export const scrapSongDataFromYT = async (
   query: string
 ): Promise<ScrapSongDataFromYTResponse> => {
-  const queryString = query.split(" ").join("+");
+  const queryString = encodeURI(query);
   const response = await fetch(baseLink + queryString);
   const html = await response.text();
   const videoLink = $("div > div > h3 > a", html).first();

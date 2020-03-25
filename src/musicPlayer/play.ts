@@ -16,6 +16,7 @@ export const play = async (msg: Msg) => {
   const connection = msg.guild.voice.connection;
 
   if (Queue.isEmpty() && !Queue.isPlaying) {
+    msg.channel.send(`Now playing ${song.name}`);
     streamSong({ song, textChannel, connection });
   } else {
     msg.channel.send(`Song ${song.name} added to queue`);
