@@ -8,7 +8,7 @@ export const handleMessage = (msg: Msg, content: string) => {
   };
 
   if (content.startsWith("p") || content.startsWith("play")) {
-    handleSong();
+    handleSong(msg);
   } else if (content === "j" || content === "join") {
     handleJoin(msg);
   } else if (content === "l" || content === "leave") {

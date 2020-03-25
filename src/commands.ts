@@ -1,7 +1,13 @@
 import { Msg } from "./types";
+import ytdl from "ytdl-core";
 
-export const handleSong = () => {
-  console.log("dupa");
+export const handleSong = (msg: Msg) => {
+  const connection = msg.guild.voice.connection;
+  connection
+    .play(ytdl("https://www.youtube.com/watch?v=cbKNICg-REA"))
+    .on("finish", () => {
+      console.log("koniec");
+    });
 };
 
 export const handleJoin = (msg: Msg) => {
