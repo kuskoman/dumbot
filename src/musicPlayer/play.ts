@@ -25,7 +25,6 @@ export const play = async (msg: Msg) => {
 
 const streamSong = ({ song, connection, textChannel }: StreamSongOpts) => {
   Queue.isPlaying = true;
-  textChannel.send(`Now playing ${song.name}`);
 
   connection.play(ytdl(song.url)).on("finish", () => {
     if (!Queue.isEmpty()) {
@@ -33,6 +32,7 @@ const streamSong = ({ song, connection, textChannel }: StreamSongOpts) => {
       streamSong({ song: nextSong, connection, textChannel });
     } else {
       Queue.isPlaying = false;
+      connection.disconnect();
     }
   });
 };
