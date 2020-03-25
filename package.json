@@ -7,9 +7,16 @@
   "author": "kkm <kubasurdej@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "start": "ts-node src/index.ts"
   },
   "devDependencies": {
+    "@types/node": "^12.12.31",
+    "ts-node": "^8.8.1",
     "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "discord.js": "^12.0.2",
+    "dotenv": "^8.2.0"
   }
 }
