@@ -1,19 +1,31 @@
 import { Msg } from "./types";
-import { play } from "./musicPlayer/play";
-import { join } from "./musicPlayer/join";
+import join from "./commands/join";
+import play from "./commands/play";
+import ping from "./commands/ping";
+import sei from "./commands/sei";
+import { PREFIX } from "./index";
 
-export const handleMessage = (msg: Msg, content: string) => {
-  const reply = (text: string) => {
-    msg.channel.send(text);
-  };
+const commands = [join, play, ping, sei];
 
-  if (content.startsWith("p") || content.startsWith("play")) {
-    play(msg);
-  } else if (content === "j" || content === "join") {
-    join(msg);
-  } else if (content === "l" || content === "leave") {
-    msg.guild.voice.connection.disconnect();
-  } else if (content === "dziaduu") {
-    reply("ile zarabiasz");
-  }
+export const handleMessage = (msg: Msg) => {
+  const command = extractCommand(msg);
+  const args = extractArgs(msg);
+
+  commands.forEach(c => {
+    if (c.pattern.includes(command)) {
+      c.execute({ msg, command, args });
+    }
+  });
+};
+
+const extractCommand = (msg: Msg) => {
+  return msg.content.slice(PREFIX.length).split(" ")[0];
+};
+
+const extractArgs = (msg: Msg) => {
+  return msg.content
+    .slice(PREFIX.length)
+    .split(" ")
+    .slice(1)
+    .join(" ");
 };

@@ -11,8 +11,7 @@ client.on("ready", () => {
 
 client.on("message", msg => {
   if (msg.content.startsWith(PREFIX) && !msg.author.bot) {
-    const content = msg.content.slice(PREFIX.length);
-    handleMessage(msg, content);
+    handleMessage(msg);
   }
 });
 

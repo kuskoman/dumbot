@@ -1,9 +1,9 @@
 import { Msg } from "src/types";
-import { joinChannel, getSongData } from "./utils";
+import { joinChannel, getSongData } from "../musicPlayer/utils";
 import { TextChannel, DMChannel, VoiceConnection } from "discord.js";
-import { Song } from "./song";
+import { Song } from "../musicPlayer/song";
 import ytdl from "ytdl-core";
-import Queue from "./queue";
+import Queue from "../musicPlayer/queue";
 
 export const play = async (msg: Msg) => {
   const query = msg.content
