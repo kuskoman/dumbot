@@ -4,9 +4,9 @@ import { MusicPlayer } from "../player";
 export class PlayCommand implements Command {
   public name = "play";
   public patterns = ["play", "p"];
-  public execute({ msg }: CommandOpts) {
+  public execute({ msg, args }: CommandOpts) {
     const player = MusicPlayer.get(msg.guild.id);
-    player.play(msg);
+    player.play(msg, args);
   }
 }
 

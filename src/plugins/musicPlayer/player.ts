@@ -37,11 +37,7 @@ export class MusicPlayer {
     this.isPlaying = false;
   }
 
-  public async play(msg: Msg) {
-    const query = msg.content
-      .split(" ")
-      .slice(1)
-      .join(" ");
+  public async play(msg: Msg, query: string) {
     const song = await getSongData(msg, query).catch(e => {
       msg.channel.send(`Can't find song ${query}`);
     });
