@@ -7,6 +7,11 @@ export class QueueCommand implements Command {
   public execute({ msg }: CommandOpts) {
     const player = MusicPlayer.get(msg.guild.id);
     const songList = player.queue.songList;
+    if (songList.length < 1) {
+      msg.channel.send("No songs in queue");
+      return;
+    }
+
     let queueString = "";
 
     for (let i = 0; i < songList.length; i++) {

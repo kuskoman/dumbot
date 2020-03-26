@@ -7,6 +7,7 @@ export class ClearQueueCommand implements Command {
   public execute({ msg }: CommandOpts) {
     const player = MusicPlayer.get(msg.guild.id);
     player.queue.reset();
+    msg.channel.send("Queue cleared");
   }
 }
 
