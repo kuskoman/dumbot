@@ -2,7 +2,7 @@ import { Msg } from "./types";
 import { PREFIX } from "./index";
 import loader from "./pluginLoader";
 
-export const handleMessage = (msg: Msg) => {
+export const handleMessage = async (msg: Msg) => {
   const command = extractCommand(msg);
   const args = extractArgs(msg);
 
