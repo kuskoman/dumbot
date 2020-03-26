@@ -42,8 +42,15 @@ export class MusicPlayer {
       .split(" ")
       .slice(1)
       .join(" ");
+    const song = await getSongData(msg, query).catch(e => {
+      msg.channel.send(`Can't find song ${query}`);
+    });
+
+    if (!song) {
+      return;
+    }
+
     joinChannel(msg);
-    const song = await getSongData(msg, query);
     const textChannel = msg.channel;
     const connection = msg.guild.voice.connection;
 
@@ -79,7 +86,6 @@ export class MusicPlayer {
     this.isPlaying = true;
     this.voiceConnection = connection;
 
-    console.log(`Started playing ${song.name}`);
     this.dispatcher = connection.play(ytdl(song.link)).on("finish", () => {
       if (!this.queue.isEmpty()) {
         this.streamSong({ connection, textChannel });

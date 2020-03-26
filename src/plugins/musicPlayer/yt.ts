@@ -11,7 +11,6 @@ export const getSongDataFromYT = async (
     key: process.env.YT_API_KEY
   };
 
-  console.log(`Looking for song ${query} on YouTube.`);
   const search = promisify(youtubeSearch);
   const response = await search(query, opts);
   const song = response[0];
