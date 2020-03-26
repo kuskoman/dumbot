@@ -44,6 +44,7 @@ export class MusicPlayer {
       this.streamSong({ song, textChannel, connection });
     } else {
       msg.channel.send(`Song ${song.name} added to queue`);
+      console.log(`Song ${name} added to queue`);
       this.queue.addSong(song);
     }
   }
@@ -51,6 +52,7 @@ export class MusicPlayer {
   private async streamSong({ song, connection, textChannel }: StreamSongOpts) {
     this.isPlaying = true;
 
+    console.log(`Started playing ${song.name}`);
     connection.play(ytdl(song.link)).on("finish", () => {
       if (!this.queue.isEmpty()) {
         const nextSong = this.queue.getSong();
