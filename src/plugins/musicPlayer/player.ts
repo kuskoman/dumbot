@@ -5,10 +5,8 @@ import {
   TextChannel,
   DMChannel,
   VoiceConnection,
-  StreamDispatcher,
-  VoiceChannel
+  StreamDispatcher
 } from "discord.js";
-import { Song } from "./song";
 import ytdl from "ytdl-core";
 import { MusicQueue } from "./queue";
 
