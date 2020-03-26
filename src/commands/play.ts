@@ -1,10 +1,11 @@
 import { CommandOpts } from "../types";
-import { play } from "../musicPlayer/player";
+import { MusicPlayer } from "../musicPlayer/player";
 
 export default {
   name: "play",
   pattern: ["play", "p"],
   execute({ msg }: CommandOpts) {
-    play(msg);
+    const player = MusicPlayer.get(msg.guild.id);
+    player.play(msg);
   }
 };

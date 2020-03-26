@@ -4,39 +4,63 @@ import { joinChannel } from "./utils";
 import { TextChannel, DMChannel, VoiceConnection } from "discord.js";
 import { Song } from "./song";
 import ytdl from "ytdl-core";
-import Queue from "./queue";
+import { MusicQueue } from "./queue";
 
-export const play = async (msg: Msg) => {
-  const query = msg.content
-    .split(" ")
-    .slice(1)
-    .join(" ");
-  joinChannel(msg);
-  const song = await getSongData(msg, query);
-  const textChannel = msg.channel;
-  const connection = msg.guild.voice.connection;
+export class MusicPlayer {
+  public static PLAYERS: MusicPlayer[] = [];
+  public serverId: string;
+  public queue: MusicQueue;
+  public isPlaying: boolean;
 
-  if (Queue.isEmpty() && !Queue.isPlaying) {
-    msg.channel.send(`Now playing ${song.name}`);
-    streamSong({ song, textChannel, connection });
-  } else {
-    msg.channel.send(`Song ${song.name} added to queue`);
-    Queue.addSong(song);
-  }
-};
+  public static get(serverId: string): MusicPlayer {
+    let player: MusicPlayer | undefined = this.PLAYERS.find(player => {
+      return player.serverId === serverId;
+    });
 
-const streamSong = ({ song, connection, textChannel }: StreamSongOpts) => {
-  Queue.isPlaying = true;
-
-  connection.play(ytdl(song.link)).on("finish", () => {
-    if (!Queue.isEmpty()) {
-      const nextSong = Queue.getSong();
-      streamSong({ song: nextSong, connection, textChannel });
-    } else {
-      Queue.isPlaying = false;
+    if (!player) {
+      player = new MusicPlayer(serverId);
     }
-  });
-};
+    return player;
+  }
+
+  constructor(serverId: string) {
+    this.serverId = serverId;
+    this.queue = new MusicQueue();
+    this.isPlaying = false;
+  }
+
+  public async play(msg: Msg) {
+    const query = msg.content
+      .split(" ")
+      .slice(1)
+      .join(" ");
+    joinChannel(msg);
+    const song = await getSongData(msg, query);
+    const textChannel = msg.channel;
+    const connection = msg.guild.voice.connection;
+
+    if (this.queue.isEmpty() && !this.isPlaying) {
+      msg.channel.send(`Now playing ${song.name}`);
+      this.streamSong({ song, textChannel, connection });
+    } else {
+      msg.channel.send(`Song ${song.name} added to queue`);
+      this.queue.addSong(song);
+    }
+  }
+
+  private async streamSong({ song, connection, textChannel }: StreamSongOpts) {
+    this.isPlaying = true;
+
+    connection.play(ytdl(song.link)).on("finish", () => {
+      if (!this.queue.isEmpty()) {
+        const nextSong = this.queue.getSong();
+        this.streamSong({ song: nextSong, connection, textChannel });
+      } else {
+        this.isPlaying = false;
+      }
+    });
+  }
+}
 
 interface StreamSongOpts {
   textChannel: TextChannel | DMChannel;
