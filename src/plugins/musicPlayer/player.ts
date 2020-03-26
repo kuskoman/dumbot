@@ -39,7 +39,7 @@ export class MusicPlayer {
 
   public async play(msg: Msg, query: string) {
     const song = await getSongData(msg, query).catch(e => {
-      msg.channel.send(`Can't find song ${query}`);
+      msg.channel.send(`Can't find song ${query} or api not aviable`);
     });
 
     if (!song) {
