@@ -20,6 +20,8 @@ export class MusicPlayer {
     if (!player) {
       player = new MusicPlayer(serverId);
     }
+
+    this.PLAYERS.push(player);
     return player;
   }
 
@@ -44,7 +46,7 @@ export class MusicPlayer {
       this.streamSong({ song, textChannel, connection });
     } else {
       msg.channel.send(`Song ${song.name} added to queue`);
-      console.log(`Song ${name} added to queue`);
+      console.log(`Song ${song.name} added to queue`);
       this.queue.addSong(song);
     }
   }
