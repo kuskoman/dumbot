@@ -84,7 +84,6 @@ export class MusicPlayer {
     console.log(`Started playing ${song.name}`);
     this.dispatcher = connection.play(ytdl(song.link)).on("finish", () => {
       if (!this.queue.isEmpty()) {
-        const nextSong = this.queue.getSong();
         this.streamSong({ connection, textChannel });
       } else {
         this.isPlaying = false;
