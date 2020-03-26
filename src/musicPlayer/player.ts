@@ -1,9 +1,10 @@
 import { Msg } from "src/types";
-import { joinChannel, getSongData } from "../musicPlayer/utils";
+import { getSongData } from "./yt";
+import { joinChannel } from "./utils";
 import { TextChannel, DMChannel, VoiceConnection } from "discord.js";
-import { Song } from "../musicPlayer/song";
+import { Song } from "./song";
 import ytdl from "ytdl-core";
-import Queue from "../musicPlayer/queue";
+import Queue from "./queue";
 
 export const play = async (msg: Msg) => {
   const query = msg.content
@@ -27,17 +28,12 @@ export const play = async (msg: Msg) => {
 const streamSong = ({ song, connection, textChannel }: StreamSongOpts) => {
   Queue.isPlaying = true;
 
-  connection.play(ytdl(song.url)).on("finish", () => {
+  connection.play(ytdl(song.link)).on("finish", () => {
     if (!Queue.isEmpty()) {
       const nextSong = Queue.getSong();
       streamSong({ song: nextSong, connection, textChannel });
     } else {
       Queue.isPlaying = false;
-      setTimeout(() => {
-        if (Queue.isPlaying) {
-          connection.disconnect();
-        }
-      }, 50000);
     }
   });
 };
