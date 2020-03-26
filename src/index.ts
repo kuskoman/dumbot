@@ -1,6 +1,6 @@
 import "dotenv/config";
 import "./plugins";
-import { Client as DiscordClient, PartialMessage, Message } from "discord.js";
+import { Client as DiscordClient } from "discord.js";
 import { handleMessage } from "./commandsHandler";
 
 export const client = new DiscordClient();

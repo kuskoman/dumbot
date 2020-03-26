@@ -1,7 +1,7 @@
 import { Song } from "./song";
 
 export class MusicQueue {
-  private songList: Song[] = [];
+  public songList: Song[] = [];
 
   public addSong(song: Song) {
     this.songList.push(song);
@@ -17,5 +17,9 @@ export class MusicQueue {
 
   public isEmpty(): Boolean {
     return this.songList.length === 0;
+  }
+
+  public reset() {
+    this.songList = [];
   }
 }
