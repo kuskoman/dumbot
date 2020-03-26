@@ -1,4 +1,4 @@
-import { Msg } from "../types";
+import { Msg } from "../../types";
 
 export const joinChannel = (msg: Msg) => {
   const channel = msg.member.voice.channel;

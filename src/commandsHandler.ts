@@ -1,18 +1,14 @@
 import { Msg } from "./types";
-import join from "./commands/join";
-import play from "./commands/play";
-import ping from "./commands/ping";
-import sei from "./commands/sei";
 import { PREFIX } from "./index";
-
-const commands = [join, play, ping, sei];
+import loader from "./pluginLoader";
 
 export const handleMessage = (msg: Msg) => {
   const command = extractCommand(msg);
   const args = extractArgs(msg);
 
+  const commands = loader.commands;
   commands.forEach(c => {
-    if (c.pattern.includes(command)) {
+    if (c.patterns.includes(command)) {
       c.execute({ msg, command, args });
     }
   });
