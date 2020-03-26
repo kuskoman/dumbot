@@ -49,13 +49,13 @@ export class MusicPlayer {
     const textChannel = msg.channel;
     const connection = msg.guild.voice.connection;
 
-    if (this.queue.isEmpty() && !this.isPlaying) {
-      msg.channel.send(`Now playing ${song.name}`);
-      this.streamSong({ song, textChannel, connection });
-    } else {
+    this.queue.addSong(song);
+
+    if (!this.queue.isEmpty || this.isPlaying) {
       msg.channel.send(`Song ${song.name} added to queue`);
-      console.log(`Song ${song.name} added to queue`);
-      this.queue.addSong(song);
+    } else {
+      msg.channel.send(`Now playing ${song.name}`);
+      this.streamSong({ textChannel, connection });
     }
   }
 
@@ -69,16 +69,15 @@ export class MusicPlayer {
     msg.channel.send("Skipping current song");
     this.dispatcher.end();
     if (!this.queue.isEmpty()) {
-      const song = this.queue.getSong();
       this.streamSong({
-        song,
         textChannel: msg.channel,
         connection: this.voiceConnection
       });
     }
   }
 
-  private async streamSong({ song, connection, textChannel }: StreamSongOpts) {
+  private async streamSong({ connection, textChannel }: StreamSongOpts) {
+    const song = this.queue.getSong();
     this.isPlaying = true;
     this.voiceConnection = connection;
 
@@ -86,7 +85,7 @@ export class MusicPlayer {
     this.dispatcher = connection.play(ytdl(song.link)).on("finish", () => {
       if (!this.queue.isEmpty()) {
         const nextSong = this.queue.getSong();
-        this.streamSong({ song: nextSong, connection, textChannel });
+        this.streamSong({ connection, textChannel });
       } else {
         this.isPlaying = false;
       }
@@ -97,5 +96,4 @@ export class MusicPlayer {
 interface StreamSongOpts {
   textChannel: TextChannel | DMChannel;
   connection: VoiceConnection;
-  song: Song;
 }
