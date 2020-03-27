@@ -82,13 +82,19 @@ export class MusicPlayer {
     this.isPlaying = true;
     this.voiceConnection = connection;
 
-    this.dispatcher = connection.play(ytdl(song.link)).on("finish", () => {
-      if (!this.queue.isEmpty()) {
-        this.streamSong({ connection, textChannel });
-      } else {
-        this.isPlaying = false;
-      }
-    });
+    this.dispatcher = connection
+      .play(ytdl(song.link))
+      .on("finish", () => {
+        if (!this.queue.isEmpty()) {
+          this.streamSong({ connection, textChannel });
+        } else {
+          this.isPlaying = false;
+        }
+      })
+      .on("close", () => {
+        this.queue.reset();
+        this.dispatcher.end();
+      });
   }
 }
 
