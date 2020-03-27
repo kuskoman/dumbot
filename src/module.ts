@@ -1,9 +1,8 @@
 import { Msg } from "./types";
 
-export interface DumbotPlugin {
+export interface DumbotModule {
   name: string;
   description: string;
-  author: string;
   version: string;
   commands: Command[];
 }

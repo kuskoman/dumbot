@@ -1,4 +1,4 @@
-import { CommandOpts, Command } from "../../../plugin";
+import { CommandOpts, Command } from "../../../module";
 import { MusicPlayer } from "../player";
 
 export class PlayCommand implements Command {

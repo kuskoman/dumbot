@@ -1,5 +1,5 @@
 import "dotenv/config";
-import "./plugins";
+import "./modules";
 import { Client as DiscordClient } from "discord.js";
 import { handleMessage } from "./commandsHandler";
 

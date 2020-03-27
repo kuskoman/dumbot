@@ -1,6 +1,6 @@
 import { Msg } from "./types";
 import { PREFIX } from "./index";
-import loader from "./pluginLoader";
+import loader from "./moduleLoader";
 
 export const handleMessage = async (msg: Msg) => {
   const command = extractCommand(msg);

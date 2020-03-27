@@ -1,4 +1,4 @@
-import { CommandOpts, Command } from "../../../plugin";
+import { CommandOpts, Command } from "../../../module";
 import { joinChannel } from "../utils";
 
 export class JoinCommand implements Command {

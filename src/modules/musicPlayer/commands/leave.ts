@@ -1,4 +1,4 @@
-import { CommandOpts, Command } from "../../../plugin";
+import { CommandOpts, Command } from "../../../module";
 
 export class LeaveCommand implements Command {
   public name = "leave";

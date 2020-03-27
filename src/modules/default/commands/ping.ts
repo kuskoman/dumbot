@@ -1,4 +1,4 @@
-import { CommandOpts, Command } from "../../../plugin";
+import { CommandOpts, Command } from "../../../module";
 
 export class PingCommand implements Command {
   public name = "ping";
