@@ -7,7 +7,9 @@ export class LeaveCommand implements Command {
   public execute({ msg }: CommandOpts) {
     const player = MusicPlayer.get(msg.guild.id);
     player.queue.reset();
-    player.dispatcher.end();
+    if (player.dispatcher) {
+      player.dispatcher.end();
+    }
     msg.member.voice.channel.leave();
   }
 }
