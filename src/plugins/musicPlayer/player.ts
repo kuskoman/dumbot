@@ -46,7 +46,7 @@ export class MusicPlayer {
       return;
     }
 
-    joinChannel(msg);
+    await joinChannel(msg);
     const textChannel = msg.channel;
     const connection = msg.guild.voice.connection;
 
