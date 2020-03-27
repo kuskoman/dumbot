@@ -7,7 +7,7 @@ import join from "./commands/join";
 import leave from "./commands/leave";
 import clearQueue from "./commands/clearQueue";
 
-export class MusucBotModule implements DumbotModule {
+export class MusicBotModule implements DumbotModule {
   public name = "DefaultModule";
   public description = "Module used for playing music from YouTube";
   public version = "1.0.0";
@@ -18,5 +18,5 @@ export class MusucBotModule implements DumbotModule {
   }
 }
 
-const musicBotModule = new MusucBotModule();
+const musicBotModule = new MusicBotModule();
 export default musicBotModule;
