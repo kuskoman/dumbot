@@ -7,12 +7,13 @@ import join from "./commands/join";
 import leave from "./commands/leave";
 import clearQueue from "./commands/clearQueue";
 import last from "./commands/last";
+import current from "./commands/current";
 
 export class MusicBotModule implements DumbotModule {
   public name = "DefaultModule";
   public description = "Module used for playing music from YouTube";
   public version = "1.0.0";
-  public commands = [play, queue, clearQueue, skip, join, leave, last];
+  public commands = [play, queue, clearQueue, skip, join, leave, last, current];
 
   constructor() {
     loader.registerModule(this);

@@ -3,7 +3,7 @@ import { MusicPlayer } from "../player";
 
 export class LastCommand implements Command {
   public name = "last";
-  public patterns = ["last", "ls", "last song", "lastsong"];
+  public patterns = ["last", "ls", "lastsong"];
   public execute({ msg }: CommandOpts) {
     const player = MusicPlayer.get(msg.guild.id);
     const lastSong = player.queue.lastSong;
