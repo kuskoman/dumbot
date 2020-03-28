@@ -90,6 +90,17 @@ export class MusicPlayer {
         } else {
           this.isPlaying = false;
         }
+
+        if (this.queue.currentSong) {
+          this.queue.lastSong = this.queue.currentSong;
+          this.queue.currentSong = undefined;
+        } // redundant but used to prevent errors, todo: refactor it
+      })
+      .on("start", () => {
+        if (this.queue.currentSong) {
+          this.queue.lastSong = this.queue.currentSong;
+        }
+        this.queue.currentSong = song;
       })
       .on("close", () => {
         this.queue.reset();

@@ -11,8 +11,6 @@ export class MusicQueue {
 
   public getSong(): Song {
     const song = this.songList.shift();
-    this.lastSong = this.currentSong;
-    this.currentSong = song;
     return song;
   }
 
@@ -26,5 +24,6 @@ export class MusicQueue {
 
   public reset() {
     this.songList = [];
+    this.currentSong = undefined;
   }
 }
