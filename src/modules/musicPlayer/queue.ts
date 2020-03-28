@@ -14,7 +14,7 @@ export class MusicQueue {
     return song;
   }
 
-  public removeSong(index) {
+  public removeSong(index: number) {
     this.songList.splice(index);
   }
 
