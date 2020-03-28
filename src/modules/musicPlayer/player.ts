@@ -105,6 +105,9 @@ export class MusicPlayer {
       .on("close", () => {
         this.queue.reset();
         this.dispatcher.end();
+      })
+      .on("error", errInfo => {
+        console.log(`Unexpected error while playing: ${errInfo}`);
       });
   }
 }
