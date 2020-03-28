@@ -2,6 +2,7 @@ import { Song } from "./song";
 
 export class MusicQueue {
   public songList: Song[] = [];
+  public currentSong: Song;
   public lastSong: Song;
 
   public addSong(song: Song) {
@@ -10,7 +11,8 @@ export class MusicQueue {
 
   public getSong(): Song {
     const song = this.songList.shift();
-    this.lastSong = song;
+    this.lastSong = this.currentSong;
+    this.currentSong = song;
     return song;
   }
 
