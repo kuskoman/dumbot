@@ -5,7 +5,8 @@ import {
   TextChannel,
   DMChannel,
   VoiceConnection,
-  StreamDispatcher
+  StreamDispatcher,
+  NewsChannel
 } from "discord.js";
 import ytdl from "ytdl-core";
 import { MusicQueue } from "./queue";
@@ -113,6 +114,6 @@ export class MusicPlayer {
 }
 
 interface StreamSongOpts {
-  textChannel: TextChannel | DMChannel;
+  textChannel: TextChannel | DMChannel | NewsChannel;
   connection: VoiceConnection;
 }
