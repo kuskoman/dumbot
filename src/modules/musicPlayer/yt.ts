@@ -4,8 +4,9 @@ import { Song } from "./song";
 import { promisify } from "util";
 import { getInfo } from "ytdl-core";
 
-const YT_REGEX = /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/;
 // regex source: https://stackoverflow.com/questions/3717115/regular-expression-for-youtube-links
+const YT_REGEX = /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/;
+// todo: make regex matching link only if query is one word
 
 export const getSongData = async (msg: Msg, query: string): Promise<Song> => {
   if (!query || query.length < 3) {
