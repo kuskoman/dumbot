@@ -13,15 +13,27 @@ export const getSongData = async (msg: Msg, query: string): Promise<Song> => {
     throw new Error("Query too short or not present");
   }
 
-  const songData = await getSongDataFromYT(query);
-  const song = {
+  const link = extractYouTubeLink(query);
+  if (link) {
+    const songData = await getInfo(link);
+    const song: Song = {
+      name: songData.title,
+      id: songData.video_id,
+      link,
+      addedBy: msg.member.id
+    };
+    return song;
+  }
+
+  const songData = await searchSongOnYT(query);
+  const song: Song = {
     ...songData,
     addedBy: msg.member.id
   };
   return song;
 };
 
-const getSongDataFromYT = async (
+const searchSongOnYT = async (
   query: string
 ): Promise<GetSongDataFromYTResponse> => {
   const opts: youtubeSearch.YouTubeSearchOptions = {
