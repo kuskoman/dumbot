@@ -3,7 +3,7 @@ import { PREFIX } from "./index";
 import loader from "./moduleLoader";
 
 export const handleMessage = async (msg: Msg) => {
-  const command = extractCommand(msg);
+  const command = extractCommand(msg).toLowerCase();
   const args = extractArgs(msg);
 
   const commands = loader.commands;
