@@ -103,13 +103,9 @@ export class MusicPlayer {
         }
         this.queue.currentSong = song;
       })
-      .on("close", () => {
-        this.queue.reset();
-        this.dispatcher.end();
-      })
       .on("error", errInfo => {
         console.log(`Unexpected error while playing: ${errInfo}`);
-      });
+      }); // todo: handle bot disconnect
   }
 }
 
