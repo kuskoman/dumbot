@@ -1,6 +1,6 @@
 {
   "name": "dumbot",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Just another Discord bot",
   "main": "dist/index.js",
   "repository": "https://github.com/kuskoman/dumbot",
