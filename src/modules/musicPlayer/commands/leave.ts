@@ -5,10 +5,14 @@ export class LeaveCommand implements Command {
   public name = "leave";
   public patterns = ["leave", "l"];
   public execute({ msg }: CommandOpts) {
-    msg.member.voice.channel.leave();
     const player = MusicPlayer.get(msg.guild.id);
     player.queue.reset();
-    player.dispatcher.end();
+
+    if (player.dispatcher) {
+      player.dispatcher.end();
+    }
+
+    msg.member.voice.channel.leave();
   }
 }
 
