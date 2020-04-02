@@ -8,7 +8,7 @@ export interface Song {
   name: string;
   id: YouTubeID;
   addedBy: DiscordID;
-  songUri: PlayableResource;
+  uri: PlayableResource;
   options?: StreamOptions;
 }
 
