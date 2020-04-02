@@ -89,7 +89,7 @@ export class SoundPlayer {
     this.voiceConnection = connection;
 
     this.dispatcher = connection
-      .play(song.uri, song.options)
+      .play(song.getStream(), song.options)
       .on("finish", () => {
         this.queue.currentSong = undefined;
 
