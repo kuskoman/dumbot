@@ -8,6 +8,7 @@ const linkRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-
 
 export const getRadio = (msg: Msg, query: string): Song => {
   const radio: Song = {
+    name: query,
     addedBy: msg.member.id,
     getStream() {
       return playRadio(msg, query);
