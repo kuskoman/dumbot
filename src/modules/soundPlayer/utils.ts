@@ -5,8 +5,8 @@ export const joinChannel = async (msg: Msg) => {
   if (channel) {
     await channel.join();
     console.log(`Joined channel ${channel.id}`);
-  } else {
-    msg.channel.send("You must be in a voice channel first");
-    return;
+    return channel;
   }
+  msg.channel.send("You must be in a voice channel first");
+  return false;
 };

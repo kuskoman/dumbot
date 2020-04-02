@@ -13,6 +13,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "incremental": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true
   },
   "exclude": ["node_modules", "dist"]

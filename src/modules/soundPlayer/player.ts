@@ -41,7 +41,9 @@ export class SoundPlayer {
     opts = opts || {};
 
     if (!msg.guild.voice.connection) {
-      await joinChannel(msg);
+      if (!(await joinChannel(msg))) {
+        return;
+      }
     }
 
     const textChannel = msg.channel;
@@ -87,7 +89,7 @@ export class SoundPlayer {
     this.voiceConnection = connection;
 
     this.dispatcher = connection
-      .play(song.songUri, song.options)
+      .play(song.uri, song.options)
       .on("finish", () => {
         this.queue.currentSong = undefined;
 
