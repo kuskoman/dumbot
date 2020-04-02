@@ -15,12 +15,12 @@ export const getSongDataFromYT = async (
   return {
     name: song.title,
     id: song.id,
-    uri: song.link
+    link: song.link
   };
 };
 
 export interface GetSongDataFromYTResponse {
   id: string;
   name: string;
-  uri: string;
+  link: string;
 }

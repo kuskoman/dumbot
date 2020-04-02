@@ -3,6 +3,7 @@ import { Song } from "../../song";
 import { extractYouTubeLink } from "./utils";
 import { getInfo } from "ytdl-core";
 import { getSongDataFromYT } from "./search";
+import ytdl from "ytdl-core";
 
 // regex source: https://stackoverflow.com/questions/3717115/regular-expression-for-youtube-links
 export const YT_REGEX = /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/;
@@ -18,16 +19,22 @@ export const getSongFromYouTube = async (
     const song: Song = {
       name: songData.title,
       id: songData.video_id,
-      uri: link,
-      addedBy: msg.member.id
+      addedBy: msg.member.id,
+      getStream() {
+        return ytdl(link);
+      }
     };
     return song;
   }
 
   const songData = await getSongDataFromYT(query);
   const song: Song = {
-    ...songData,
-    addedBy: msg.member.id
+    name: songData.name,
+    id: songData.id,
+    addedBy: msg.member.id,
+    getStream() {
+      return ytdl(songData.link);
+    }
   };
   return song;
 };
