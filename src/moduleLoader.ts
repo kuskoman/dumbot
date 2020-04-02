@@ -1,14 +1,14 @@
 import { DumbotModule, Command } from "./module";
 
-export class PluginLoader {
-  public plugins: DumbotModule[] = [];
+export class ModuleLoader {
+  public modules: DumbotModule[] = [];
   public commands: Command[] = [];
 
   public registerModule(module: DumbotModule) {
-    this.plugins.push(module);
+    this.modules.push(module);
     this.commands.push(...module.commands);
   }
 }
 
-const pluginLoader = new PluginLoader();
-export default pluginLoader;
+const moduleLoader = new ModuleLoader();
+export default moduleLoader;
