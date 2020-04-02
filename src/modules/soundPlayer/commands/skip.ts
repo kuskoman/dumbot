@@ -1,11 +1,11 @@
 import { CommandOpts, Command } from "../../../module";
-import { MusicPlayer } from "../player";
+import { SoundPlayer } from "../player";
 
 export class SkipCommand implements Command {
   public name = "skip";
   public patterns = ["skip", "s"];
   public execute({ msg }: CommandOpts) {
-    const player = MusicPlayer.get(msg.guild.id);
+    const player = SoundPlayer.get(msg.guild.id);
     player.skip(msg);
   }
 }

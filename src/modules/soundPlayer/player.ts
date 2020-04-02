@@ -1,31 +1,30 @@
-import { Msg } from "src/types";
-import { getSongData } from "./yt";
-import { joinChannel } from "./utils";
+import { MusicQueue } from "./queue";
 import {
+  StreamDispatcher,
+  VoiceConnection,
   TextChannel,
   DMChannel,
-  VoiceConnection,
-  StreamDispatcher,
   NewsChannel
 } from "discord.js";
-import ytdl from "ytdl-core";
-import { MusicQueue } from "./queue";
+import { Msg } from "../../types";
+import { Song } from "./song";
+import { joinChannel } from "./utils";
 
-export class MusicPlayer {
-  public static PLAYERS: MusicPlayer[] = [];
+export class SoundPlayer {
+  public static PLAYERS: SoundPlayer[] = [];
   public serverId: string;
   public queue: MusicQueue;
   public isPlaying: boolean;
   public dispatcher: StreamDispatcher;
   public voiceConnection: VoiceConnection;
 
-  public static get(serverId: string): MusicPlayer {
-    let player: MusicPlayer | undefined = this.PLAYERS.find(player => {
+  public static get(serverId: string): SoundPlayer {
+    let player: SoundPlayer | undefined = this.PLAYERS.find(player => {
       return player.serverId === serverId;
     });
 
     if (!player) {
-      player = new MusicPlayer(serverId);
+      player = new SoundPlayer(serverId);
     }
 
     this.PLAYERS.push(player);
@@ -38,26 +37,24 @@ export class MusicPlayer {
     this.isPlaying = false;
   }
 
-  public async play(msg: Msg, query: string) {
-    const song = await getSongData(msg, query).catch(_e => {
-      msg.channel.send(`Can't find song ${query} or api not aviable`);
-    });
+  public async play({ msg, song, opts }: PlayInput) {
+    opts = opts || {};
 
-    if (!song) {
-      return;
+    if (!msg.member.voice.connection) {
+      if (!(await joinChannel(msg))) {
+        return;
+      }
     }
 
-    await joinChannel(msg);
     const textChannel = msg.channel;
     const connection = msg.guild.voice.connection;
 
-    this.queue.addSong(song);
-
     if (!this.queue.isEmpty || this.isPlaying) {
-      msg.channel.send(`Song ${song.name} added to queue`);
+      msg.channel.send(`**${song.name}** added to queue`);
+      this.queue.addSong(song);
     } else {
       msg.channel.send(`Now playing ${song.name}`);
-      this.streamSong({ textChannel, connection });
+      this.streamSong({ textChannel, connection, song });
     }
   }
 
@@ -65,43 +62,43 @@ export class MusicPlayer {
     if (!msg.member.voice.channel) {
       return msg.channel.send("You are not connected to a voice channel");
     }
+
     if (!this.isPlaying) {
       return msg.channel.send("There is nothing to skip");
     }
+
     msg.channel.send("Skipping current song");
     this.dispatcher.end();
+
     if (!this.queue.isEmpty()) {
+      const song = this.queue.getSong();
       this.streamSong({
         textChannel: msg.channel,
-        connection: this.voiceConnection
+        connection: this.voiceConnection,
+        song
       });
     }
   }
 
-  private async streamSong({ connection, textChannel }: StreamSongOpts) {
-    const song = this.queue.getSong();
+  private async streamSong({ connection, textChannel, song }: StreamSongOpts) {
+    if (this.queue.currentSong) {
+      this.queue.lastSong = this.queue.currentSong;
+    }
+    this.queue.currentSong = song;
     this.isPlaying = true;
     this.voiceConnection = connection;
 
     this.dispatcher = connection
-      .play(ytdl(song.link))
+      .play(song.getStream(), song.options)
       .on("finish", () => {
+        this.queue.currentSong = undefined;
+
         if (!this.queue.isEmpty()) {
-          this.streamSong({ connection, textChannel });
+          const nextSong = this.queue.getSong();
+          this.streamSong({ connection, textChannel, song: nextSong });
         } else {
           this.isPlaying = false;
         }
-
-        if (this.queue.currentSong) {
-          this.queue.lastSong = this.queue.currentSong;
-          this.queue.currentSong = undefined;
-        } // redundant but used to prevent errors, todo: refactor it
-      })
-      .on("start", () => {
-        if (this.queue.currentSong) {
-          this.queue.lastSong = this.queue.currentSong;
-        }
-        this.queue.currentSong = song;
       })
       .on("error", errInfo => {
         console.log(`Unexpected error while playing: ${errInfo}`);
@@ -109,7 +106,20 @@ export class MusicPlayer {
   }
 }
 
+export interface PlayInput {
+  msg: Msg;
+  song: Song;
+  opts?: PlayOpts;
+}
+
+export interface PlayOpts {
+  mode?: PlayMode;
+}
+
+export type PlayMode = "queue" | "instant";
+
 interface StreamSongOpts {
+  song: Song;
   textChannel: TextChannel | DMChannel | NewsChannel;
   connection: VoiceConnection;
 }

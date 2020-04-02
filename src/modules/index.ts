@@ -1,2 +1,2 @@
 import "./default";
-import "./musicPlayer";
+import "./soundPlayer";

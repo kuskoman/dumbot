@@ -1,11 +1,11 @@
 import { CommandOpts, Command } from "../../../module";
-import { MusicPlayer } from "../player";
+import { SoundPlayer } from "../player";
 
 export class ClearQueueCommand implements Command {
   public name = "stop";
   public patterns = ["clear", "cq", "clear queue", "clearqueue"];
   public execute({ msg }: CommandOpts) {
-    const player = MusicPlayer.get(msg.guild.id);
+    const player = SoundPlayer.get(msg.guild.id);
     player.queue.reset();
     msg.channel.send("Queue cleared");
   }

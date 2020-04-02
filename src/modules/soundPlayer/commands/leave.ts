@@ -1,11 +1,11 @@
 import { CommandOpts, Command } from "../../../module";
-import { MusicPlayer } from "../player";
+import { SoundPlayer } from "../player";
 
 export class LeaveCommand implements Command {
   public name = "leave";
   public patterns = ["leave", "l"];
   public execute({ msg }: CommandOpts) {
-    const player = MusicPlayer.get(msg.guild.id);
+    const player = SoundPlayer.get(msg.guild.id);
     player.queue.reset();
 
     if (player.dispatcher) {

@@ -1,11 +1,11 @@
 import { CommandOpts, Command } from "../../../module";
-import { MusicPlayer } from "../player";
+import { SoundPlayer } from "../player";
 
 export class QueueCommand implements Command {
   public name = "queue";
   public patterns = ["q", "queue"];
   public execute({ msg }: CommandOpts) {
-    const player = MusicPlayer.get(msg.guild.id);
+    const player = SoundPlayer.get(msg.guild.id);
     const songList = player.queue.songList;
     if (songList.length < 1) {
       msg.channel.send("No songs in queue");
