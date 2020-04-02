@@ -26,19 +26,19 @@ export class RadioBroadcast {
     this.url = url;
   }
 
-  public join(subscriber: string): StreamDispatcher {
+  public join(subscriber: string): VoiceBroadcast {
     if (this.broadcast && this.dispatcher) {
-      return this.dispatcher;
+      return this.broadcast;
     }
 
-    const broadcast = client.voice.createBroadcast();
-    const dispatcher = broadcast.play(this.url);
+    if (!this.broadcast) {
+      this.broadcast = client.voice.createBroadcast();
+    }
 
-    this.broadcast = broadcast;
-    this.dispatcher = dispatcher;
+    this.dispatcher = this.broadcast.play(this.url);
     this.subscribers.push(subscriber);
 
-    return dispatcher;
+    return this.broadcast;
   }
 
   public unsubscribe(msg: Msg) {
