@@ -40,7 +40,7 @@ export class SoundPlayer {
   public async play({ msg, song, opts }: PlayInput) {
     opts = opts || {};
 
-    if (!msg.guild.voice.connection) {
+    if (!msg.member.voice.connection) {
       if (!(await joinChannel(msg))) {
         return;
       }

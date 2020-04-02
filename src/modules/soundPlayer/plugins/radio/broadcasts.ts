@@ -7,7 +7,7 @@ export class RadioBroadcast {
   public url: string;
   public broadcast: VoiceBroadcast;
   public dispatcher: StreamDispatcher;
-  public subscribers: string[];
+  public subscribers: string[] = [];
 
   public static get(url: string): RadioBroadcast {
     let broadcast: RadioBroadcast | undefined = this.BROADCASTS.find(player => {

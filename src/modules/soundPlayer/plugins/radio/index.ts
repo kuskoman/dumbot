@@ -28,7 +28,7 @@ const playRadio = (msg: Msg, query: string) => {
   }
 
   const broadcast = RadioBroadcast.get(url);
-  return broadcast.join(msg.guild.id);
+  return broadcast.join(msg.member.guild.id);
 };
 
 const getRadioUrl = (identifier: string) => {
