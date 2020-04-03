@@ -14,12 +14,12 @@ export const getHelp = (name: string): string => {
     return `No commands or modules found for ${name}.`;
   }
 
-  if (modules.length) {
-    message += `${formatModulesDescription(modules)}\n`;
-  }
-
   if (commands.length) {
     message += `${formatCommandsDescription(commands)}\n`;
+  }
+
+  if (modules.length) {
+    message += `${formatModulesDescription(modules)}\n`;
   }
 
   return message;
