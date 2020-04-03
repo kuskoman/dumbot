@@ -15,14 +15,23 @@ export const getHelp = (name: string): string => {
   }
 
   if (modules.length) {
-    message += `Modules found:
-      ${formatModulesDescription(modules)}\n\n`;
+    message += `${formatModulesDescription(modules)}\n`;
   }
 
   if (commands.length) {
     message += `Commands found:
-      ${formatCommandsDescription(commands)}`;
+      ${formatCommandsDescription(commands)}\n`;
   }
 
   return message;
+};
+
+export const getModulesHelp = (name: string): string => {
+  const modules = findModules(name);
+  return formatModulesDescription(modules);
+};
+
+export const getCommandsHelp = (name: string): string => {
+  const commands = findCommands(name);
+  return formatCommandsDescription(commands);
 };
