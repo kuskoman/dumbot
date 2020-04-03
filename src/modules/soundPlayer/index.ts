@@ -12,7 +12,7 @@ import playYT from "./plugins/yt/commands/yt";
 import radio from "./plugins/radio/commands/radio";
 
 export class SoundPlayerModule implements DumbotModule {
-  public name = "DefaultModule";
+  public name = "soundPlayer";
   public description = "Module used for playing music from YouTube";
   public version = "1.0.0";
   public commands = [
