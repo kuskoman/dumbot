@@ -1,4 +1,4 @@
-import { Command, DumbotModule } from "../../../module";
+import { Command, DumbotModule } from "../../module";
 
 export const formatCommandsDescription = (commands: Command[]): string => {
   if (commands.length < 1) {

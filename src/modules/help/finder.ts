@@ -1,5 +1,5 @@
-import loader from "../../../moduleLoader";
-import { Command, DumbotModule } from "../../../module";
+import loader from "../../moduleLoader";
+import { Command, DumbotModule } from "../../module";
 
 export const findModules = (name: string): DumbotModule[] => {
   const modules = loader.modules;
