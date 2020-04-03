@@ -16,7 +16,8 @@ export const findCommands = (name: string): Command[] => {
   const commands = loader.commands;
   const matchingCommands: Command[] = [];
   commands.forEach(c => {
-    if (c.patterns.includes(name)) {
+    // exact pattern match or partial name match
+    if (c.name.includes(name) || c.patterns.includes(name)) {
       matchingCommands.push(c);
     }
   });

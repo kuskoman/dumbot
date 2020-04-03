@@ -19,8 +19,7 @@ export const getHelp = (name: string): string => {
   }
 
   if (commands.length) {
-    message += `Commands found:
-      ${formatCommandsDescription(commands)}\n`;
+    message += `${formatCommandsDescription(commands)}\n`;
   }
 
   return message;
