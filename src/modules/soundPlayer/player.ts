@@ -4,7 +4,7 @@ import {
   VoiceConnection,
   TextChannel,
   DMChannel,
-  NewsChannel
+  NewsChannel,
 } from "discord.js";
 import { Msg } from "../../types";
 import { Song } from "./song";
@@ -19,7 +19,7 @@ export class SoundPlayer {
   public voiceConnection: VoiceConnection;
 
   public static get(serverId: string): SoundPlayer {
-    let player: SoundPlayer | undefined = this.PLAYERS.find(player => {
+    let player: SoundPlayer | undefined = this.PLAYERS.find((player) => {
       return player.serverId === serverId;
     });
 
@@ -69,15 +69,6 @@ export class SoundPlayer {
 
     msg.channel.send("Skipping current song");
     this.dispatcher.end();
-
-    if (!this.queue.isEmpty()) {
-      const song = this.queue.getSong();
-      this.streamSong({
-        textChannel: msg.channel,
-        connection: this.voiceConnection,
-        song
-      });
-    }
   }
 
   private async streamSong({ connection, textChannel, song }: StreamSongOpts) {
@@ -100,7 +91,7 @@ export class SoundPlayer {
           this.isPlaying = false;
         }
       })
-      .on("error", errInfo => {
+      .on("error", (errInfo) => {
         console.log(`Unexpected error while playing: ${errInfo}`);
       }); // todo: handle bot disconnect
   }
