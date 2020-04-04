@@ -8,7 +8,7 @@ export class RadioCommand implements Command {
   public execute({ msg, args }: CommandOpts) {
     const player = SoundPlayer.get(msg.guild.id);
     const song = getRadio(msg, args);
-    player.play({ msg, song });
+    player.play({ msg, song, opts: { mode: "radio" } });
   }
 }
 
