@@ -9,7 +9,7 @@ export class SoundPlayer {
   public serverId: string;
   public queue: MusicQueue;
   public isPlaying: boolean = false;
-  public playMode: PlayMode = "queue";
+  public isQueuePaued: boolean = false;
   public dispatcher: StreamDispatcher | undefined;
   public voiceConnection: VoiceConnection | undefined;
 
@@ -20,9 +20,9 @@ export class SoundPlayer {
 
     if (!player) {
       player = new SoundPlayer(serverId);
+      this.PLAYERS.push(player);
     }
 
-    this.PLAYERS.push(player);
     return player;
   }
 
@@ -39,6 +39,7 @@ export class SoundPlayer {
     if (!connection) return;
 
     if (mode === "radio") {
+      this.isQueuePaued = true;
       this.dispatcher.end();
       msg.channel.send(`Playing radio **${song.name}**.`);
       return this.streamSong({ textChannel, connection, song, mode });
@@ -63,10 +64,11 @@ export class SoundPlayer {
     }
 
     msg.channel.send("Skipping current song");
+    this.isQueuePaued = false;
     this.dispatcher.end();
   }
 
-  private async streamSong({ connection, textChannel, song }: StreamSongOpts) {
+  private streamSong({ connection, textChannel, song }: StreamSongOpts) {
     this.queue.currentSong = song;
     this.isPlaying = true;
     this.voiceConnection = connection;
@@ -95,10 +97,14 @@ export class SoundPlayer {
     return connection;
   }
 
-  private async playQueueIfPossible({
+  private playQueueIfPossible({
     connection,
     textChannel,
   }: PlayQueueIfPossibleInput) {
+    if (this.isQueuePaued) {
+      return false;
+    }
+    // todo: refactor these ifs
     if (this.queue.isEmpty()) {
       return (this.isPlaying = false);
     }
