@@ -2,8 +2,8 @@ import { Song } from "./song";
 
 export class MusicQueue {
   public songList: Song[] = [];
-  public currentSong: Song;
-  public lastSong: Song;
+  public currentSong: Song | undefined;
+  public lastSong: Song | undefined;
 
   public addSong(song: Song) {
     this.songList.push(song);
