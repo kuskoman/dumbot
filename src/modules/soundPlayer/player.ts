@@ -8,10 +8,10 @@ export class SoundPlayer {
   public static PLAYERS: SoundPlayer[] = [];
   public serverId: string;
   public queue: MusicQueue;
-  public isPlaying: boolean;
+  public isPlaying: boolean = false;
+  public playMode: PlayMode = "queue";
   public dispatcher: StreamDispatcher | undefined;
   public voiceConnection: VoiceConnection | undefined;
-  public playMode: PlayMode;
 
   public static get(serverId: string): SoundPlayer {
     let player: SoundPlayer | undefined = this.PLAYERS.find((player) => {
@@ -29,8 +29,6 @@ export class SoundPlayer {
   constructor(serverId: string) {
     this.serverId = serverId;
     this.queue = new MusicQueue();
-    this.isPlaying = false;
-    this.playMode = "queue";
   }
 
   public async play({ msg, song, opts }: PlayInput) {
@@ -51,7 +49,7 @@ export class SoundPlayer {
       return this.queue.addSong(song);
     }
 
-    msg.channel.send(`Now playing ${song.name}`);
+    msg.channel.send(`Now playing **${song.name}**`);
     this.streamSong({ textChannel, connection, song, mode });
   }
 
@@ -69,9 +67,6 @@ export class SoundPlayer {
   }
 
   private async streamSong({ connection, textChannel, song }: StreamSongOpts) {
-    if (this.queue.currentSong) {
-      this.queue.lastSong = this.queue.currentSong;
-    }
     this.queue.currentSong = song;
     this.isPlaying = true;
     this.voiceConnection = connection;
@@ -79,6 +74,7 @@ export class SoundPlayer {
     this.dispatcher = connection
       .play(song.getStream(), song.options)
       .on("finish", () => {
+        this.queue.lastSong = this.queue.currentSong;
         this.queue.currentSong = undefined;
 
         this.playQueueIfPossible({ connection, textChannel });
