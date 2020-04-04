@@ -1,6 +1,9 @@
 import { Msg } from "../../types";
+import { VoiceChannel } from "discord.js";
 
-export const joinChannel = async (msg: Msg) => {
+export const joinChannel = async (
+  msg: Msg
+): Promise<VoiceChannel | boolean> => {
   const channel = msg.member?.voice?.channel;
   if (!channel) {
     msg.channel.send("You must be in a voice channel first");
