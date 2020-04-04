@@ -109,6 +109,12 @@ export class SoundPlayer {
     }
 
     const nextSong = this.queue.getSong();
+    if (!nextSong) {
+      textChannel.send("Error while fetching next song");
+      return console.log(
+        "Error while getting next song from queue: song is undefined."
+      );
+    }
     return this.streamSong({
       connection,
       textChannel,
