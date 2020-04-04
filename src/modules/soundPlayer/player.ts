@@ -35,18 +35,25 @@ export class SoundPlayer {
 
   public async play({ msg, song, opts }: PlayInput) {
     opts = opts || {};
-
+    const { mode } = opts;
     const textChannel = msg.channel;
     const connection = await this.getVoiceConnection(msg);
     if (!connection) return;
 
+    if (mode === "radio") {
+      this.playMode = "radio";
+      this.dispatcher.end();
+      msg.channel.send(`Playing radio **${song.name}**.`);
+      return this.streamSong({ textChannel, connection, song, mode });
+    }
+
     if (!this.queue.isEmpty || this.isPlaying) {
       msg.channel.send(`**${song.name}** added to queue`);
-      this.queue.addSong(song);
-    } else {
-      msg.channel.send(`Now playing ${song.name}`);
-      this.streamSong({ textChannel, connection, song });
+      return this.queue.addSong(song);
     }
+
+    msg.channel.send(`Now playing ${song.name}`);
+    this.streamSong({ textChannel, connection, song, mode });
   }
 
   public async skip(msg: Msg): Promise<any> {
@@ -117,7 +124,7 @@ export interface PlayOpts {
   mode?: PlayMode;
 }
 
-export type PlayMode = "queue" | "instant";
+export type PlayMode = "queue" | "radio";
 
 interface StreamSongOpts {
   song: Song;
