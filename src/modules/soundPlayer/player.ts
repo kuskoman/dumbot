@@ -41,7 +41,6 @@ export class SoundPlayer {
     if (!connection) return;
 
     if (mode === "radio") {
-      this.playMode = "radio";
       this.dispatcher.end();
       msg.channel.send(`Playing radio **${song.name}**.`);
       return this.streamSong({ textChannel, connection, song, mode });
@@ -82,21 +81,8 @@ export class SoundPlayer {
       .on("finish", () => {
         this.queue.currentSong = undefined;
 
-        if (!this.queue.isEmpty()) {
-          const nextSong = this.queue.getSong();
-          this.streamSong({
-            connection,
-            textChannel,
-            song: nextSong,
-            mode: "queue",
-          });
-        } else {
-          this.isPlaying = false;
-        }
-      })
-      .on("error", (errInfo) => {
-        console.log(`Unexpected error while playing: ${errInfo}`);
-      }); // todo: handle bot disconnect
+        this.playQueueIfPossible({ connection, textChannel });
+      });
   }
 
   private async getVoiceConnection(
@@ -111,6 +97,23 @@ export class SoundPlayer {
       connection = msg.guild?.voice?.connection;
     }
     return connection;
+  }
+
+  private async playQueueIfPossible({
+    connection,
+    textChannel,
+  }: PlayQueueIfPossibleInput) {
+    if (this.queue.isEmpty()) {
+      return (this.isPlaying = false);
+    }
+
+    const nextSong = this.queue.getSong();
+    return this.streamSong({
+      connection,
+      textChannel,
+      song: nextSong,
+      mode: "queue",
+    });
   }
 }
 
@@ -131,4 +134,9 @@ interface StreamSongOpts {
   textChannel: MsgChannel;
   connection: VoiceConnection;
   mode: PlayMode;
+}
+
+interface PlayQueueIfPossibleInput {
+  connection: VoiceConnection;
+  textChannel: MsgChannel;
 }
