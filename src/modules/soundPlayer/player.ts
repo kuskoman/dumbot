@@ -40,7 +40,7 @@ export class SoundPlayer {
 
     if (mode === "radio") {
       this.isQueuePaued = true;
-      this.dispatcher.end();
+      this.endDispatcher();
       msg.channel.send(`Playing radio **${song.name}**.`);
       return this.streamSong({ textChannel, connection, song, mode });
     }
@@ -65,7 +65,7 @@ export class SoundPlayer {
 
     msg.channel.send("Skipping current song");
     this.isQueuePaued = false;
-    this.dispatcher.end();
+    this.endDispatcher();
   }
 
   private streamSong({ connection, textChannel, song }: StreamSongOpts) {
@@ -116,6 +116,12 @@ export class SoundPlayer {
       song: nextSong,
       mode: "queue",
     });
+  }
+
+  private endDispatcher() {
+    if (this.dispatcher) {
+      this.dispatcher.end();
+    }
   }
 }
 
