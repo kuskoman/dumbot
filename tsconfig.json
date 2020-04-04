@@ -7,14 +7,14 @@
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
-    "baseUrl": ".",
     "experimentalDecorators": true,
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
     "incremental": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strict": true
   },
   "exclude": ["node_modules", "dist"]
 }
