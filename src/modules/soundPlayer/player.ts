@@ -32,8 +32,7 @@ export class SoundPlayer {
   }
 
   public async play({ msg, song, opts }: PlayInput) {
-    opts = opts || {};
-    const { mode } = opts;
+    const mode = opts?.mode || "queue";
     const textChannel = msg.channel;
     const connection = await this.getVoiceConnection(msg);
     if (!connection) return;
@@ -55,7 +54,7 @@ export class SoundPlayer {
   }
 
   public async skip(msg: Msg): Promise<any> {
-    if (!msg.member.voice.channel) {
+    if (!msg.member?.voice?.channel) {
       return msg.channel.send("You are not connected to a voice channel");
     }
 
@@ -85,7 +84,7 @@ export class SoundPlayer {
 
   private async getVoiceConnection(
     msg: Msg
-  ): Promise<VoiceConnection | undefined> {
+  ): Promise<VoiceConnection | undefined | null> {
     let connection = msg.guild?.voice?.connection;
     if (!connection) {
       const voiceChannel = await joinChannel(msg);
@@ -128,10 +127,10 @@ export class SoundPlayer {
 export interface PlayInput {
   msg: Msg;
   song: Song;
-  opts?: PlayOpts;
+  opts?: PlayOptsInput;
 }
 
-export interface PlayOpts {
+export interface PlayOptsInput {
   mode?: PlayMode;
 }
 
