@@ -6,7 +6,7 @@ import {
   DMChannel,
   NewsChannel,
 } from "discord.js";
-import { Msg } from "../../types";
+import { Msg, MsgChannel } from "../../types";
 import { Song } from "./song";
 import { joinChannel } from "./utils";
 
@@ -15,8 +15,8 @@ export class SoundPlayer {
   public serverId: string;
   public queue: MusicQueue;
   public isPlaying: boolean;
-  public dispatcher: StreamDispatcher;
-  public voiceConnection: VoiceConnection;
+  public dispatcher: StreamDispatcher | undefined;
+  public voiceConnection: VoiceConnection | undefined;
 
   public static get(serverId: string): SoundPlayer {
     let player: SoundPlayer | undefined = this.PLAYERS.find((player) => {
@@ -111,6 +111,6 @@ export type PlayMode = "queue" | "instant";
 
 interface StreamSongOpts {
   song: Song;
-  textChannel: TextChannel | DMChannel | NewsChannel;
+  textChannel: MsgChannel;
   connection: VoiceConnection;
 }
