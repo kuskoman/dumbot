@@ -1,11 +1,5 @@
 import { MusicQueue } from "./queue";
-import {
-  StreamDispatcher,
-  VoiceConnection,
-  TextChannel,
-  DMChannel,
-  NewsChannel,
-} from "discord.js";
+import { StreamDispatcher, VoiceConnection } from "discord.js";
 import { Msg, MsgChannel } from "../../types";
 import { Song } from "./song";
 import { joinChannel } from "./utils";
@@ -17,6 +11,7 @@ export class SoundPlayer {
   public isPlaying: boolean;
   public dispatcher: StreamDispatcher | undefined;
   public voiceConnection: VoiceConnection | undefined;
+  public playMode: PlayMode;
 
   public static get(serverId: string): SoundPlayer {
     let player: SoundPlayer | undefined = this.PLAYERS.find((player) => {
@@ -35,19 +30,15 @@ export class SoundPlayer {
     this.serverId = serverId;
     this.queue = new MusicQueue();
     this.isPlaying = false;
+    this.playMode = "queue";
   }
 
   public async play({ msg, song, opts }: PlayInput) {
     opts = opts || {};
 
-    if (!msg.member.voice.connection) {
-      if (!(await joinChannel(msg))) {
-        return;
-      }
-    }
-
     const textChannel = msg.channel;
-    const connection = msg.guild.voice.connection;
+    const connection = await this.getVoiceConnection(msg);
+    if (!connection) return;
 
     if (!this.queue.isEmpty || this.isPlaying) {
       msg.channel.send(`**${song.name}** added to queue`);
@@ -86,7 +77,12 @@ export class SoundPlayer {
 
         if (!this.queue.isEmpty()) {
           const nextSong = this.queue.getSong();
-          this.streamSong({ connection, textChannel, song: nextSong });
+          this.streamSong({
+            connection,
+            textChannel,
+            song: nextSong,
+            mode: "queue",
+          });
         } else {
           this.isPlaying = false;
         }
@@ -94,6 +90,20 @@ export class SoundPlayer {
       .on("error", (errInfo) => {
         console.log(`Unexpected error while playing: ${errInfo}`);
       }); // todo: handle bot disconnect
+  }
+
+  private async getVoiceConnection(
+    msg: Msg
+  ): Promise<VoiceConnection | undefined> {
+    let connection = msg.guild?.voice?.connection;
+    if (!connection) {
+      const voiceChannel = await joinChannel(msg);
+      if (!voiceChannel) {
+        return undefined;
+      }
+      connection = msg.guild?.voice?.connection;
+    }
+    return connection;
   }
 }
 
@@ -113,4 +123,5 @@ interface StreamSongOpts {
   song: Song;
   textChannel: MsgChannel;
   connection: VoiceConnection;
+  mode: PlayMode;
 }
