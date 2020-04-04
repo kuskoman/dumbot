@@ -10,7 +10,7 @@ export const joinChannel = async (
     return false;
   }
 
-  if (!channel.guild.me.hasPermission("CONNECT")) {
+  if (!channel.guild?.me?.hasPermission("CONNECT")) {
     msg.channel.send(
       "Bot does not have permission to join channels on this server."
     );

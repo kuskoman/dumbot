@@ -9,7 +9,7 @@ export class MusicQueue {
     this.songList.push(song);
   }
 
-  public getSong(): Song {
+  public getSong(): Song | undefined {
     const song = this.songList.shift();
     return song;
   }

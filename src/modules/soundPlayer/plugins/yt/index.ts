@@ -12,29 +12,35 @@ export const YT_REGEX = /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.b
 export const getSongFromYouTube = async (
   msg: Msg,
   query: string
-): Promise<Song> => {
+): Promise<Song | undefined> => {
   const link = extractYouTubeLink(query);
+  const addedBy = msg.member?.id || "unknown";
   if (link) {
     const songData = await getInfo(link);
     const song: Song = {
       name: songData.title,
       id: songData.video_id,
-      addedBy: msg.member.id,
+      addedBy,
       getStream() {
         return ytdl(link);
-      }
+      },
     };
     return song;
   }
 
   const songData = await getSongDataFromYT(query);
+
+  if (!songData) {
+    return undefined;
+  }
+
   const song: Song = {
     name: songData.name,
     id: songData.id,
-    addedBy: msg.member.id,
+    addedBy,
     getStream() {
       return ytdl(songData.link);
-    }
+    },
   };
   return song;
 };

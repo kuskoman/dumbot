@@ -1,4 +1,4 @@
-import { VoiceBroadcast, StreamOptions, StreamDispatcher } from "discord.js";
+import { VoiceBroadcast, StreamOptions } from "discord.js";
 import internal from "stream";
 
 export type YouTubeID = string;

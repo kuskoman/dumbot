@@ -7,10 +7,10 @@ export const client = new DiscordClient();
 export const PREFIX = process.env.prefix || "?";
 
 client.on("ready", () => {
-  console.log(`Bot logged in as ${client.user.tag}`);
+  console.log(`Bot logged in as ${client.user?.tag}`);
 });
 
-client.on("message", msg => {
+client.on("message", (msg) => {
   if (msg.content.startsWith(PREFIX) && !msg.author.bot) {
     handleMessage(msg);
   }
