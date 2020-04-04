@@ -117,6 +117,12 @@ export class SoundPlayer {
       mode: "queue",
     });
   }
+
+  private endDispatcher() {
+    if (this.dispatcher) {
+      this.dispatcher.end();
+    }
+  }
 }
 
 export interface PlayInput {
