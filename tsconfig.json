@@ -13,8 +13,7 @@
     "outDir": "./dist",
     "incremental": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "strict": true
+    "esModuleInterop": true
   },
   "exclude": ["node_modules", "dist"]
 }

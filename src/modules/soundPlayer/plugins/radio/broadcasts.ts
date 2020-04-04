@@ -1,18 +1,20 @@
 import { client } from "../../../../index";
-import { VoiceBroadcast, StreamDispatcher, VoiceConnection } from "discord.js";
-import { Msg } from "src/types";
+import { VoiceBroadcast, StreamDispatcher } from "discord.js";
+import { Msg } from "../../../../types";
 
 export class RadioBroadcast {
   public static BROADCASTS: RadioBroadcast[] = [];
   public url: string;
-  public broadcast: VoiceBroadcast;
-  public dispatcher: StreamDispatcher;
+  public broadcast: VoiceBroadcast | undefined;
+  public dispatcher: StreamDispatcher | undefined;
   public subscribers: string[] = [];
 
   public static get(url: string): RadioBroadcast {
-    let broadcast: RadioBroadcast | undefined = this.BROADCASTS.find(player => {
-      return player.url === url;
-    });
+    let broadcast: RadioBroadcast | undefined = this.BROADCASTS.find(
+      (player) => {
+        return player.url === url;
+      }
+    );
 
     if (!broadcast) {
       broadcast = new RadioBroadcast(url);
