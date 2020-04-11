@@ -83,5 +83,30 @@
     "name": "Caribe 95.5 FM",
     "url": "http://108.170.61.114:8578/stream/1/",
     "country": "ve"
+  },
+  "locaurban": {
+    "name": "Loca Urban",
+    "url": "http://audio-online.net:8012/live",
+    "country": "es"
+  },
+  "openfmlatino": {
+    "name": "OpenFM - Latino",
+    "url": "https://stream.open.fm/19",
+    "country": "pl"
+  },
+  "openfmzostanwdomu": {
+    "name": "OpenFM - #zostanwdomu",
+    "url": "https://stream.open.fm/365?type=.aac",
+    "country": "pl"
+  },
+  "openfmdiscopolo": {
+    "name": "OpenFM - Disco Polo",
+    "url": "https://stream.open.fm/21?type=.aac",
+    "country": "pl"
+  },
+  "radyodejavu": {
+    "name": "Radyo Dejavu",
+    "url": "http://radyodejavu.canliyayinda.com:8054/;",
+    "country": "tk"
   }
 }
