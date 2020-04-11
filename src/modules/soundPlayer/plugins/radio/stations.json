@@ -42,11 +42,11 @@
   "bbcworldservice": {
     "name": "BBC World Service",
     "url": "http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk",
-    "language": "en"
+    "lang": "en"
   },
   "ujotfm": {
     "name": "UJOT FM",
     "url": "https://stream4.nadaje.com:13813/ujotfm128",
-    "language": "pl"
+    "lang": "pl"
   }
 }
