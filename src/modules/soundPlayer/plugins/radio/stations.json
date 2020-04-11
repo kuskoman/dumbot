@@ -123,5 +123,10 @@
     "name": "La Mejor 90.9 San Luis Potosí",
     "url": "http://ais-sa2.cdnstream1.com/2364_64.aac",
     "country": "mx"
+  },
+  "truckersfm": {
+    "name": "Truckers FM",
+    "url": "https://live.truckers.fm/",
+    "country": "gb"
   }
 }
