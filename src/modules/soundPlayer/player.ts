@@ -9,7 +9,6 @@ export class SoundPlayer {
   public serverId: string;
   public queue: MusicQueue;
   public isPlaying: boolean = false;
-  public isQueuePaued: boolean = false;
   public dispatcher: StreamDispatcher | undefined;
   public voiceConnection: VoiceConnection | undefined;
 
@@ -37,20 +36,13 @@ export class SoundPlayer {
     const connection = await this.getVoiceConnection(msg);
     if (!connection) return;
 
-    if (mode === "radio") {
-      this.isQueuePaued = true;
-      this.endDispatcher();
-      msg.channel.send(`Playing radio **${song.name}**.`);
-      return this.streamSong({ textChannel, connection, song, mode });
-    }
-
     if (!this.queue.isEmpty || this.isPlaying) {
       msg.channel.send(`**${song.name}** added to queue`);
       return this.queue.addSong(song);
     }
 
     msg.channel.send(`Now playing **${song.name}**`);
-    this.streamSong({ textChannel, connection, song, mode });
+    this.streamSong({ textChannel, connection, song });
   }
 
   public async skip(msg: Msg): Promise<any> {
@@ -63,7 +55,6 @@ export class SoundPlayer {
     }
 
     msg.channel.send("Skipping current song");
-    this.isQueuePaued = false;
     this.endDispatcher();
   }
 
@@ -78,7 +69,14 @@ export class SoundPlayer {
         this.queue.lastSong = this.queue.currentSong;
         this.queue.currentSong = undefined;
 
-        this.playQueueIfPossible({ connection, textChannel });
+        this.queue.currentSong = undefined;
+
+        if (!this.queue.isEmpty()) {
+          const nextSong = this.queue.getSong();
+          this.streamSong({ connection, textChannel, song: nextSong });
+        } else {
+          this.isPlaying = false;
+        }
       });
   }
 
@@ -94,33 +92,6 @@ export class SoundPlayer {
       connection = msg.guild?.voice?.connection;
     }
     return connection;
-  }
-
-  private playQueueIfPossible({
-    connection,
-    textChannel,
-  }: PlayQueueIfPossibleInput) {
-    if (this.isQueuePaued) {
-      return false;
-    }
-    // todo: refactor these ifs
-    if (this.queue.isEmpty()) {
-      return (this.isPlaying = false);
-    }
-
-    const nextSong = this.queue.getSong();
-    if (!nextSong) {
-      textChannel.send("Error while fetching next song");
-      return console.log(
-        "Error while getting next song from queue: song is undefined."
-      );
-    }
-    return this.streamSong({
-      connection,
-      textChannel,
-      song: nextSong,
-      mode: "queue",
-    });
   }
 
   private endDispatcher() {
@@ -146,10 +117,4 @@ interface StreamSongOpts {
   song: Song;
   textChannel: MsgChannel;
   connection: VoiceConnection;
-  mode: PlayMode;
-}
-
-interface PlayQueueIfPossibleInput {
-  connection: VoiceConnection;
-  textChannel: MsgChannel;
 }
