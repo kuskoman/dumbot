@@ -108,5 +108,20 @@
     "name": "Radyo Dejavu",
     "url": "http://radyodejavu.canliyayinda.com:8054/;",
     "country": "tk"
+  },
+  "nrgturk": {
+    "name": "NRG Türk",
+    "url": "http://scserv.nrgplay.com/stream/2/",
+    "country": "tk"
+  },
+  "superfmcomtr": {
+    "name": "Super FM",
+    "url": "https://17773.live.streamtheworld.com/SUPER_FM128AAC.aac",
+    "country": "tk"
+  },
+  "lamejor": {
+    "name": "La Mejor 90.9 San Luis Potosí",
+    "url": "http://ais-sa2.cdnstream1.com/2364_64.aac",
+    "country": "mx"
   }
 }
