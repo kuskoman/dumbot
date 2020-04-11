@@ -2,51 +2,86 @@
   "leliwa": {
     "name": "Leliwa",
     "url": "http://stream2.nadaje.com:8054/;stream/1",
-    "lang": "pl"
+    "country": "pl"
   },
   "russkoe": {
     "name": "Русское Радио",
     "url": "https://rusradio.hostingradio.ru/rusradio96.aacp",
-    "lang": "ru"
+    "country": "ru"
   },
   "los40principales": {
     "name": "Los 40 Principales España",
     "url": "https://20863.live.streamtheworld.com/LOS40AAC.aac",
-    "lang": "es"
+    "country": "es"
   },
   "kissfm": {
     "name": "KISS FM España",
     "url": "https://kissfm.kissfmradio.cires21.com/kissfm.mp3",
-    "lang": "es"
+    "country": "es"
   },
   "latina104": {
     "name": "Latina 104",
     "url": "https://radio.dominiserver.com/proxy/latina104?mp=/stream",
-    "lang": "es"
+    "country": "es"
   },
   "rne1nacional": {
     "name": "RNE 1 Radio Nacional",
     "url": "https://rne.rtveradio.cires21.com/rne.mp3",
-    "lang": "es"
+    "country": "es"
   },
   "kralpop": {
     "name": "KRAL POP",
     "url": "http://kralpopwmp.radyotvonline.com/listen.pls/;387921199724517stream.nsv",
-    "lang": "tk"
+    "country": "tk"
   },
   "arabeskfm": {
     "name": "Arabesk FM",
     "url": "https://yayin.arabeskfm.biz:8042/stream/1/",
-    "lang": "tk"
+    "country": "tk"
   },
   "bbcworldservice": {
     "name": "BBC World Service",
     "url": "http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk",
-    "lang": "en"
+    "country": "gb"
   },
   "ujotfm": {
     "name": "UJOT FM",
     "url": "https://stream4.nadaje.com:13813/ujotfm128",
-    "lang": "pl"
+    "country": "pl"
+  },
+  "bossanovabrazil": {
+    "name": "Bossa Nova Brazil",
+    "url": "http://54.38.43.201:8009/stream-128kmp3-BossaNovaBrazil",
+    "country": "br"
+  },
+  "openfm80s": {
+    "name": "OpenFM - 80s Hits",
+    "url": "https://stream.open.fm//3",
+    "country": "pl"
+  },
+  "rmffm": {
+    "name": "RMF FM",
+    "url": "https://rs6-krk2-cyfronet.rmfstream.pl/RMFFM48",
+    "country": "pl"
+  },
+  "antywawa": {
+    "name": "Antyradio",
+    "url": "https://n-6-9.dcs.redcdn.pl/sc/o2/Eurozet/live/antyradio.livx",
+    "country": "pl"
+  },
+  "radiotuneazerbaijan": {
+    "name": "Radio Tune Azerbaijan",
+    "url": "https://tune.az:8015/stream",
+    "country": "az"
+  },
+  "abudhabifm": {
+    "name": "Abu Dhabi FM 90.0",
+    "url": "https://21283.live.streamtheworld.com/ABU_DHABI.mp3",
+    "country": "ae"
+  },
+  "carube955fm": {
+    "name": "Caribe 95.5 FM",
+    "url": "http://108.170.61.114:8578/stream/1/",
+    "country": "ve"
   }
 }
