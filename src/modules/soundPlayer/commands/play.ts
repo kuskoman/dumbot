@@ -1,5 +1,5 @@
 import { CommandOpts, Command } from "../../../module";
-import { recogniseRadioStation } from "../plugins/radio";
+import { recogniseRadioStation } from "../plugins/radio/stationFinder";
 import radio from "../plugins/radio/commands/radio";
 import ytPlay from "../plugins/yt/commands/yt";
 
