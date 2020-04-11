@@ -1,4 +1,52 @@
 {
-  "leliwa": "http://stream2.nadaje.com:8054/;stream/1",
-  "russkoe": "https://rusradio.hostingradio.ru/rusradio96.aacp"
+  "leliwa": {
+    "name": "Leliwa",
+    "url": "http://stream2.nadaje.com:8054/;stream/1",
+    "lang": "pl"
+  },
+  "russkoe": {
+    "name": "Русское Радио",
+    "url": "https://rusradio.hostingradio.ru/rusradio96.aacp",
+    "lang": "ru"
+  },
+  "los40principales": {
+    "name": "Los 40 Principales España",
+    "url": "https://20863.live.streamtheworld.com/LOS40AAC.aac",
+    "lang": "es"
+  },
+  "kissfm": {
+    "name": "KISS FM España",
+    "url": "https://kissfm.kissfmradio.cires21.com/kissfm.mp3",
+    "lang": "es"
+  },
+  "latina104": {
+    "name": "Latina 104",
+    "url": "https://radio.dominiserver.com/proxy/latina104?mp=/stream",
+    "lang": "es"
+  },
+  "rne1nacional": {
+    "name": "RNE 1 Radio Nacional",
+    "url": "https://rne.rtveradio.cires21.com/rne.mp3",
+    "lang": "es"
+  },
+  "kralpop": {
+    "name": "KRAL POP",
+    "url": "http://kralpopwmp.radyotvonline.com/listen.pls/;387921199724517stream.nsv",
+    "lang": "tk"
+  },
+  "arabeskfm": {
+    "name": "Arabesk FM",
+    "url": "https://yayin.arabeskfm.biz:8042/stream/1/",
+    "lang": "tk"
+  },
+  "bbcworldservice": {
+    "name": "BBC World Service",
+    "url": "http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk",
+    "language": "en"
+  },
+  "ujotfm": {
+    "name": "UJOT FM",
+    "url": "https://stream4.nadaje.com:13813/ujotfm128",
+    "language": "pl"
+  }
 }
