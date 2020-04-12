@@ -32,12 +32,12 @@
   "kralpop": {
     "name": "KRAL POP",
     "url": "http://kralpopwmp.radyotvonline.com/listen.pls/;387921199724517stream.nsv",
-    "country": "tk"
+    "country": "tr"
   },
   "arabeskfm": {
     "name": "Arabesk FM",
     "url": "https://yayin.arabeskfm.biz:8042/stream/1/",
-    "country": "tk"
+    "country": "tr"
   },
   "bbcworldservice": {
     "name": "BBC World Service",
@@ -107,17 +107,17 @@
   "radyodejavu": {
     "name": "Radyo Dejavu",
     "url": "http://radyodejavu.canliyayinda.com:8054/;",
-    "country": "tk"
+    "country": "tr"
   },
   "nrgturk": {
     "name": "NRG Türk",
     "url": "http://scserv.nrgplay.com/stream/2/",
-    "country": "tk"
+    "country": "tr"
   },
   "superfmcomtr": {
     "name": "Super FM",
     "url": "https://17773.live.streamtheworld.com/SUPER_FM128AAC.aac",
-    "country": "tk"
+    "country": "tr"
   },
   "lamejor": {
     "name": "La Mejor 90.9 San Luis Potosí",
