@@ -6,7 +6,7 @@ export const listStations = (): string => {
   const entries = Object.entries(stations);
   const stationsList = entries.slice(0, entries.length - 1);
   for (const [key, properties] of stationsList) {
-    stationsString += `:flag_${properties.country}:**${properties.name}** alias \`${key}\`\n`;
+    stationsString += `:flag_${properties.country}: **${properties.name}** alias \`${key}\`\n`;
   }
 
   return stationsString;
