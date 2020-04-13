@@ -15,6 +15,7 @@
     "@types/dotenv": "^8.2.0",
     "@types/jest": "^25.2.1",
     "@types/node": "^12.12.31",
+    "@types/ws": "^7.2.3",
     "jest": "^25.2.7",
     "nodemon": "^2.0.2",
     "ts-jest": "^25.3.1",
