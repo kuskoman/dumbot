@@ -2,8 +2,13 @@ import * as stations from "./stations.json";
 import { Station } from "./stations";
 
 export const recogniseRadioStation = (query: string): Station | undefined => {
-  if (Object.keys(stations).includes(query)) {
-    return stations[query] as Station;
+  const stationsJson = stations as StationsList;
+  if (Object.keys(stationsJson).includes(query)) {
+    return stationsJson[query] as Station;
   }
   return undefined;
 };
+
+interface StationsList {
+  [key: string]: Station;
+}
