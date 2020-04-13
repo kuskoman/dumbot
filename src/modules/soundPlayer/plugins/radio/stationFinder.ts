@@ -10,11 +10,5 @@ export const recogniseRadioStation = (query: string): Station | undefined => {
 };
 
 interface StationsList {
-  [key: string]: StationData;
-}
-
-interface StationData {
-  name: string;
-  url: string;
-  country: string;
+  [key: string]: Station;
 }
