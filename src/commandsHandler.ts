@@ -18,7 +18,7 @@ export const handleMessage = async (msg: Msg) => {
       logger.debug(
         `Message ${msg.content} recognised as command. Executing using ${c.name}`
       );
-      return c.execute({ msg, command: lowercaseCmd, args });
+      c.execute({ msg, command: lowercaseCmd, args });
     }
   });
 };
