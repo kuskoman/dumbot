@@ -14,7 +14,7 @@
     "url": "https://20863.live.streamtheworld.com/LOS40AAC.aac",
     "country": "es"
   },
-  "kissfm": {
+  "kissfmes": {
     "name": "KISS FM España",
     "url": "https://kissfm.kissfmradio.cires21.com/kissfm.mp3",
     "country": "es"
@@ -64,12 +64,12 @@
     "url": "https://rs6-krk2-cyfronet.rmfstream.pl/RMFFM48",
     "country": "pl"
   },
-  "antywawa": {
+  "antyradio": {
     "name": "Antyradio",
     "url": "https://n-6-9.dcs.redcdn.pl/sc/o2/Eurozet/live/antyradio.livx",
     "country": "pl"
   },
-  "radiotuneazerbaijan": {
+  "tuneazerbaijan": {
     "name": "Radio Tune Azerbaijan",
     "url": "https://tune.az:8015/stream",
     "country": "az"
@@ -79,7 +79,7 @@
     "url": "https://21283.live.streamtheworld.com/ABU_DHABI.mp3",
     "country": "ae"
   },
-  "carube955fm": {
+  "caribe955fm": {
     "name": "Caribe 95.5 FM",
     "url": "http://108.170.61.114:8578/stream/1/",
     "country": "ve"
