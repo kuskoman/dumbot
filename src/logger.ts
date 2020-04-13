@@ -6,7 +6,12 @@ export class DumbotLogger {
   public info(input: any) {
     this.logFn(`[${~~new Date()}] ${input}`);
   }
+  public debug(input: any) {
+    this.logFn(`[${~~new Date()}] ${input}`);
+  }
 }
+
+// todo: allow disabling debug
 
 const defaultOpts = {
   logFn: (a: any) => {

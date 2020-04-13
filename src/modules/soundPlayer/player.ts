@@ -3,6 +3,7 @@ import { StreamDispatcher, VoiceConnection } from "discord.js";
 import { Msg, MsgChannel } from "../../types";
 import { Song } from "./song";
 import { joinChannel } from "./utils";
+import logger from "../../logger";
 
 export class SoundPlayer {
   public static PLAYERS: SoundPlayer[] = [];
@@ -31,13 +32,16 @@ export class SoundPlayer {
   }
 
   public async play({ msg, song, opts }: PlayInput) {
-    const mode = opts?.mode || "queue";
+    const _mode = opts?.mode || "queue";
     const textChannel = msg.channel;
     const connection = await this.getVoiceConnection(msg);
     if (!connection) return;
 
     if (!this.queue.isEmpty || this.isPlaying) {
       msg.channel.send(`**${song.name}** added to queue`);
+      logger.info(
+        `${msg.member.id} added ${song.name} to queue on channel ${connection.channel.id}`
+      );
       return this.queue.addSong(song);
     }
 
@@ -65,6 +69,9 @@ export class SoundPlayer {
 
     this.dispatcher = connection
       .play(song.getStream(), song.options)
+      .on("start", () => {
+        logger.info(`Bot playing ${song.name} on ${connection.channel.id}.`);
+      })
       .on("finish", () => {
         this.queue.lastSong = this.queue.currentSong;
         this.queue.currentSong = undefined;
