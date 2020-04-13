@@ -4,10 +4,10 @@ export class DumbotLogger {
     this.logFn = opts.logFn || defaultOpts.logFn;
   }
   public info(input: any) {
-    this.logFn(`[${~~new Date()}] ${input}`);
+    this.logFn(`[${~~new Date()} INFO] ${input}`);
   }
   public debug(input: any) {
-    this.logFn(`[${~~new Date()}] ${input}`);
+    this.logFn(`[${~~new Date()} DEBUG] ${input}`);
   }
 }
 
