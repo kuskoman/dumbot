@@ -6,6 +6,11 @@ export class PlayYTCommand implements Command {
   public name = "playYT";
   public patterns = ["playyt", "yt"];
   public async execute({ msg, args }: CommandOpts): Promise<any> {
+    if (!process.env.YT_API_KEY) {
+      return msg.channel.send(
+        "YouTube API key missing- playing songs from YT is unaviable"
+      );
+    }
     const song = await getSongFromYouTube(msg, args);
     if (!msg.guild?.id) {
       return msg.channel.send("Can't find server id.");
