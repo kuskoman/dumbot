@@ -40,7 +40,7 @@ export class SoundPlayer {
     if (!this.queue.isEmpty || this.isPlaying) {
       msg.channel.send(`**${song.name}** added to queue`);
       logger.info(
-        `${msg.member.id} added ${song.name} to queue on channel ${connection.channel.id}`
+        `${msg.member?.id} added ${song.name} to queue on channel ${connection.channel.id}`
       );
       return this.queue.addSong(song);
     }
@@ -80,10 +80,11 @@ export class SoundPlayer {
 
         if (!this.queue.isEmpty()) {
           const nextSong = this.queue.getSong();
-          this.streamSong({ connection, textChannel, song: nextSong });
-        } else {
-          this.isPlaying = false;
+          if (nextSong) {
+            this.streamSong({ connection, textChannel, song: nextSong });
+          }
         }
+        this.isPlaying = false;
       });
   }
 

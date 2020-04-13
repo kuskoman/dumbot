@@ -4,7 +4,10 @@ import { SoundPlayer } from "../player";
 export class QueueCommand implements Command {
   public name = "queue";
   public patterns = ["q", "queue"];
-  public execute({ msg }: CommandOpts) {
+  public execute({ msg }: CommandOpts): any {
+    if (!msg.guild?.id) {
+      return msg.channel.send("Can't find server id.");
+    }
     const player = SoundPlayer.get(msg.guild.id);
     const songList = player.queue.songList;
     if (songList.length < 1) {
