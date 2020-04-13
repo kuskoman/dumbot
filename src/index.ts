@@ -4,7 +4,7 @@ import { Client as DiscordClient } from "discord.js";
 import { handleMessage } from "./commandsHandler";
 
 export const client = new DiscordClient();
-export const PREFIX = process.env.prefix || "?";
+export const PREFIX = process.env.PREFIX || "?";
 
 client.on("ready", () => {
   console.log(`Bot logged in as ${client.user?.tag}`);
