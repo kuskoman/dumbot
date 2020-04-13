@@ -2,12 +2,13 @@ import "dotenv/config";
 import "./modules";
 import { Client as DiscordClient } from "discord.js";
 import { handleMessage } from "./commandsHandler";
+import logger from "./logger";
 
 export const client = new DiscordClient();
 export const PREFIX = process.env.PREFIX || "?";
 
 client.on("ready", () => {
-  console.log(`Bot logged in as ${client.user?.tag}`);
+  logger.info(`Bot logged in as ${client.user?.tag}`);
 });
 
 client.on("message", (msg) => {
