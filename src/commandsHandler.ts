@@ -5,9 +5,9 @@ import logger from "./logger";
 
 export const handleMessage = async (msg: Msg) => {
   const command = extractCommand(msg);
-  const args = extractArgs(msg);
+  const args = extractArgs(msg) || "";
 
-  if (!command || !args) {
+  if (!command) {
     return;
   }
 
