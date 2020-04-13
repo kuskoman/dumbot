@@ -1,5 +1,6 @@
 import { Msg } from "../../types";
 import { VoiceChannel } from "discord.js";
+import logger from "../../logger";
 
 export const joinChannel = async (
   msg: Msg
@@ -19,14 +20,14 @@ export const joinChannel = async (
 
   try {
     await channel.join();
-    console.log(`Joined channel ${channel.id}`);
+    logger.info(`Joined channel ${channel.id}`);
 
     return channel;
   } catch (e) {
     msg.channel.send(
       "Could not join channel. Please check if bot has permission to join this channel."
     );
-    console.log(`Could not join channel. Error: ${e}`);
+    logger.info(`Could not join channel. Error: ${e}`);
 
     return false;
   }
