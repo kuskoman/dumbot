@@ -16,7 +16,7 @@ export const handleMessage = async (msg: Msg) => {
   commands.forEach((c) => {
     if (c.patterns.includes(lowercaseCmd)) {
       logger.debug(
-        `Message ${msg.content} recognised as command. Executing using ${c.name}`
+        `Message "${msg.content}" recognised as command. Executing using "${c.name}"`
       );
       c.execute({ msg, command: lowercaseCmd, args });
     }
