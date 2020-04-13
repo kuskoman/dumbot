@@ -128,5 +128,60 @@
     "name": "Truckers FM",
     "url": "https://live.truckers.fm/",
     "country": "gb"
+  },
+  "prrpolanddab": {
+    "name": "PR R Poland DAB",
+    "url": "http://stream3.polskieradio.pl:8912/;",
+    "country": "pl"
+  },
+  "antenazagreb": {
+    "name": "Antena Zagreb",
+    "url": "http://live.antenazagreb.hr:8000/;",
+    "country": "hr"
+  },
+  "noviradiozadar": {
+    "name": "Novi Radio Zadar",
+    "url": "http://s8.iqstreaming.com:8022/stream",
+    "country": "hr"
+  },
+  "goldfmhr": {
+    "name": "Gold FM",
+    "url": "http://live.goldfm.hr:8068/;",
+    "country": "hr"
+  },
+  "bihradio": {
+    "name": "BIH Radio",
+    "url": "http://188.40.62.20:8034/",
+    "country": "ba"
+  },
+  "crobrno": {
+    "name": "CRo Brno",
+    "url": "http://icecast2.play.cz/crobrno128.mp3",
+    "country": "cz"
+  },
+  "kissproton": {
+    "name": "Kiss Proton 90 FM",
+    "url": "http://icecast1.play.cz/kissproton128.mp3",
+    "country": "cz"
+  },
+  "fajnradio": {
+    "name": "Fajn Radio",
+    "url": "http://ice.abradio.cz:8000/fajn128.mp3",
+    "country": "cz"
+  },
+  "ceskadvojka": {
+    "name": "Český rozhlas Dvojka",
+    "url": "http://icecast6.play.cz/cro2-128.mp3",
+    "country": "cz"
+  },
+  "917xfm": {
+    "name": "917XFM",
+    "url": "http://s6-webradio.rockantenne.hamburg/917xfm/stream/mp3",
+    "country": "de"
+  },
+  "bayern1": {
+    "name": "BAYERN 1 Schwaben",
+    "url": "http://br-edge-2001.dus-lg.cdn.addradio.net/br/br1/schwaben/mp3/128/stream.mp3",
+    "country": "de"
   }
 }
