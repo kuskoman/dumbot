@@ -10,6 +10,9 @@ export class RadioCommand implements Command {
     if (!args) {
       return msg.channel.send(listStations());
     }
+    if (!msg.guild?.id) {
+      return msg.channel.send("Can't find server id.");
+    }
     const player = SoundPlayer.get(msg.guild.id);
     const song = getRadio(msg, args);
     if (!song) {
