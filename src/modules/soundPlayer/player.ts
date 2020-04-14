@@ -9,7 +9,7 @@ export class SoundPlayer {
   public static PLAYERS: SoundPlayer[] = [];
   public serverId: string;
   public queue: MusicQueue;
-  public isPlaying: boolean = false;
+  public isPlaying: boolean;
   public dispatcher: StreamDispatcher | undefined;
   public voiceConnection: VoiceConnection | undefined;
 
@@ -29,6 +29,7 @@ export class SoundPlayer {
   constructor(serverId: string) {
     this.serverId = serverId;
     this.queue = new MusicQueue();
+    this.isPlaying = false;
   }
 
   public async play({ msg, song, opts }: PlayInput) {
@@ -46,14 +47,13 @@ export class SoundPlayer {
     }
 
     msg.channel.send(`Now playing **${song.name}**`);
-    this.streamSong({ textChannel, connection, song });
+    return this.streamSong({ textChannel, connection, song });
   }
 
   public async skip(msg: Msg): Promise<any> {
     if (!msg.member?.voice?.channel) {
       return msg.channel.send("You are not connected to a voice channel");
     }
-
     if (!this.isPlaying) {
       return msg.channel.send("There is nothing to skip");
     }
@@ -81,7 +81,7 @@ export class SoundPlayer {
         if (!this.queue.isEmpty()) {
           const nextSong = this.queue.getSong();
           if (nextSong) {
-            this.streamSong({ connection, textChannel, song: nextSong });
+            return this.streamSong({ connection, textChannel, song: nextSong });
           }
         }
         this.isPlaying = false;

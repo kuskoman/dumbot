@@ -1,5 +1,6 @@
 import { CommandOpts, Command } from "../../../module";
 import { SoundPlayer } from "../player";
+import logger from "../../../logger";
 
 export class LeaveCommand implements Command {
   public name = "leave";
@@ -22,6 +23,7 @@ export class LeaveCommand implements Command {
       );
     }
     voiceChannel.leave();
+    logger.info(`Left channel ${msg.channel.id}`);
   }
 }
 
