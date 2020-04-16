@@ -22,6 +22,9 @@ export class CovidApiClient {
   }
 }
 
+const api = new CovidApiClient();
+export default api;
+
 export interface CovidApiData {
   Global: {
     NewConfirmed: number;
