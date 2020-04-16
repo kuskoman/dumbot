@@ -6,10 +6,10 @@ const API_URL = "https://api.covid19api.com/";
 export class CovidApiClient {
   private url: string = API_URL;
   private cache: Map<string, CacheObject> = new Map();
-  public async getSummary() {
+  public async getSummary(): Promise<CovidApiData> {
     const currentTime = ~~new Date();
     const cachedData = this.cache.get("globalSummary");
-    if (cachedData && currentTime - cachedData.timestamp < 360) {
+    if (cachedData && currentTime - cachedData.timestamp < 360 * 1000) {
       return cachedData.data;
     }
     const fullAddress = `${this.url}summary`;
@@ -47,7 +47,7 @@ export interface CountryData {
   TotalDeaths: number;
   NewRecovered: number;
   TotalRecovered: number;
-  Date: Date;
+  Date: string;
 }
 
 interface CacheObject {
