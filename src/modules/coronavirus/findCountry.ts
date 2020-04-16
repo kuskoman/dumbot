@@ -5,6 +5,10 @@ export const findCountry = (
   query: string
 ): CountryData | undefined => {
   return data.find((c) => {
-    return c.CountryCode === query || c.Slug === query || c.Country === query;
+    return (
+      c.CountryCode.toLowerCase() === query ||
+      c.Slug.toLowerCase() === query ||
+      c.Country.toLowerCase() === query
+    ); // todo: map lowercase or smth
   });
 };
