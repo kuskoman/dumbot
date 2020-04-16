@@ -9,7 +9,7 @@ export class CovidCommand implements Command {
   public async execute({ msg, args }: CommandOpts): Promise<any> {
     const query = args.trim().toLowerCase();
     const data = await api.getSummary();
-    const countryData = findCountry(data, query);
+    const countryData = findCountry(data.Countries, query);
     if (!countryData) {
       return msg.channel.send(
         `Can't find coronavirus data for query: ${query}`

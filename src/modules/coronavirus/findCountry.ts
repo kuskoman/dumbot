@@ -4,11 +4,12 @@ export const findCountry = (
   data: CountryData[],
   query: string
 ): CountryData | undefined => {
-  return data.find((c) => {
+  const matchesQuery = (c: CountryData): boolean => {
     return (
       c.CountryCode.toLowerCase() === query ||
       c.Slug.toLowerCase() === query ||
       c.Country.toLowerCase() === query
-    ); // todo: map lowercase or smth
-  });
+    );
+  };
+  return data.find(matchesQuery);
 };
