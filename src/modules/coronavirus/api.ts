@@ -7,7 +7,7 @@ export class CovidApiClient {
   private url: string = API_URL;
   private cache: Map<string, CacheObject> = new Map();
   public async getSummary(): Promise<CovidApiData> {
-    const currentTime = ~~new Date();
+    const currentTime = +new Date();
     const cachedData = this.cache.get("globalSummary");
     if (cachedData && currentTime - cachedData.timestamp < 360 * 1000) {
       return cachedData.data;
