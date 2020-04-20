@@ -1,5 +1,5 @@
 import { Msg } from "./types";
-import { PREFIX } from "./index";
+import { PREFIX } from "./config";
 import loader from "./moduleLoader";
 import logger from "./logger";
 

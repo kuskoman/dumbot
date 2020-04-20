@@ -1,6 +1,6 @@
 import { handleMessage } from "../src/commandsHandler";
 import { Msg } from "../src/types";
-import { PREFIX } from "../src";
+import { PREFIX } from "../src/config";
 import moduleLoader from "../src/moduleLoader";
 
 describe("commandsHandler", () => {
