@@ -13,7 +13,7 @@ export class CovidApiClient {
       return cachedData.data;
     }
     const fullAddress = `${this.url}summary`;
-    logger.info(`Sending api request to ${fullAddress}`);
+    logger.http(`Sending api request to ${fullAddress}`);
     const response = await axios.get(fullAddress);
     const data = response.data as CovidApiData;
     const cacheObject = { timestamp: currentTime, data };
