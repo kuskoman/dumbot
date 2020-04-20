@@ -3,7 +3,7 @@ import "./modules";
 import { Client as DiscordClient } from "discord.js";
 import { handleMessage } from "./commandsHandler";
 import logger from "./logger";
-import { PREFIX } from "./config";
+import config from "./config";
 
 export const client = new DiscordClient();
 
@@ -12,7 +12,7 @@ client.on("ready", () => {
 });
 
 client.on("message", (msg) => {
-  if (msg.content.startsWith(PREFIX) && !msg.author.bot) {
+  if (msg.content.startsWith(config.prefix) && !msg.author.bot) {
     handleMessage(msg);
   }
 });
