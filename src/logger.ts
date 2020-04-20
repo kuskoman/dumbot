@@ -1,7 +1,7 @@
 import { createLogger, transports, format } from "winston";
 
 const logger = createLogger({
-  transports: [new transports.Console({ format: format.simple() })],
+  level: "debug",
+  transports: [new transports.Console({ format: format.cli() })],
 });
-
 export default logger;
