@@ -14,6 +14,10 @@ export class ModuleLoader {
       });
     });
   }
+
+  public getCommand(command: string): Command | undefined {
+    return this.commandPatterns.get(command);
+  }
 }
 
 const moduleLoader = new ModuleLoader();
