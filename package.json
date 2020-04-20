@@ -30,6 +30,7 @@
     "ffmpeg": "^0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "node-fetch": "^2.6.0",
+    "winston": "^3.2.1",
     "youtube-search": "^1.1.4",
     "ytdl-core": "^2.0.1"
   }

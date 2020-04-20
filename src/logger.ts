@@ -1,28 +1,7 @@
-export class DumbotLogger {
-  private logFn: LogFn;
-  constructor(opts: LoggerOpts = {}) {
-    this.logFn = opts.logFn || defaultOpts.logFn;
-  }
-  public info(input: any) {
-    this.logFn(`[${+new Date()} INFO] ${input}`);
-  }
-  public debug(input: any) {
-    this.logFn(`[${+new Date()} DEBUG] ${input}`);
-  }
-}
+import { createLogger, transports, format } from "winston";
 
-// todo: allow disabling debug
+const logger = createLogger({
+  transports: [new transports.Console({ format: format.simple() })],
+});
 
-const defaultOpts = {
-  logFn: (a: any) => {
-    console.log(a);
-  },
-};
-
-export interface LoggerOpts {
-  logFn?: LogFn;
-}
-
-export type LogFn = (input: any) => void;
-export const logger = new DumbotLogger();
 export default logger;
