@@ -1,5 +1,5 @@
 import { Msg } from "./types";
-import { PREFIX } from "./config";
+import config from "./config";
 import loader from "./moduleLoader";
 import logger from "./logger";
 
@@ -21,9 +21,9 @@ export const handleMessage = async (msg: Msg) => {
 };
 
 const extractCommand = (msg: Msg) => {
-  return msg.content?.slice(PREFIX.length).split(" ")[0];
+  return msg.content?.slice(config.prefix.length).split(" ")[0];
 };
 
 const extractArgs = (msg: Msg) => {
-  return msg.content?.slice(PREFIX.length).split(" ").slice(1).join(" ");
+  return msg.content?.slice(config.prefix.length).split(" ").slice(1).join(" ");
 };

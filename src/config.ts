@@ -1,1 +1,3 @@
-export const PREFIX = process.env.PREFIX || "?";
+export default {
+  prefix: process.env.PREFIX || "?",
+};
