@@ -1,20 +1,22 @@
 import "dotenv/config";
 import "./modules";
-import { Client as DiscordClient } from "discord.js";
-import { handleMessage } from "./commandsHandler";
+import bot from "./bot";
 import logger from "./logger";
 import config from "./config";
 
-export const client = new DiscordClient();
+if (!process.env.DISCORD_TOKEN) {
+  logger.error("Missing DISCORD_TOKEN environment variable");
+}
+if (!process.env.PREFIX) {
+  logger.warn(
+    `Missing PREFIX environemnt variable. Using default "${config.prefix}" instead`
+  );
+}
 
-client.on("ready", () => {
-  logger.info(`Bot logged in as ${client.user?.tag}`);
-});
+if (!process.env.YT_API_KEY) {
+  logger.warn(
+    `Missing YT_API_KEY environemnt variable. Playing songs from YouTube will be disabled`
+  );
+}
 
-client.on("message", (msg) => {
-  if (msg.content.startsWith(config.prefix) && !msg.author.bot) {
-    handleMessage(msg);
-  }
-});
-
-client.login(process.env.DISCORD_TOKEN);
+bot.login(process.env.DISCORD_TOKEN);
