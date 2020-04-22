@@ -7,6 +7,7 @@ export const bot = new DiscordClient();
 
 bot.on("ready", () => {
   logger.info(`Bot logged in as ${bot.user?.tag}`);
+  logger.info(`Bot prefix is set to "${config.prefix}"`);
 });
 
 bot.on("message", (msg) => {
