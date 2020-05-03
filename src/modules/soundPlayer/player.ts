@@ -32,8 +32,7 @@ export class SoundPlayer {
     this.isPlaying = false;
   }
 
-  public async play({ msg, song, opts }: PlayInput) {
-    const _mode = opts?.mode || "queue";
+  public async play({ msg, song }: PlayInput) {
     const textChannel = msg.channel;
     const connection = await this.getVoiceConnection(msg);
     if (!connection) return;

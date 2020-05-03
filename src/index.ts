@@ -7,6 +7,7 @@ import config from "./config";
 if (!process.env.DISCORD_TOKEN) {
   logger.error("Missing DISCORD_TOKEN environment variable");
 }
+
 if (!process.env.PREFIX) {
   logger.warn(
     `Missing PREFIX environemnt variable. Using default "${config.prefix}" instead`
