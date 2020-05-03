@@ -22,7 +22,7 @@ export const getSongFromYouTube = async (
       id: songData.video_id,
       addedBy,
       getStream() {
-        return ytdl(link, { liveBuffer: 30000 });
+        return ytdl(link);
       },
     };
     return song;
