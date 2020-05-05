@@ -46,7 +46,7 @@ export class SoundPlayer {
     }
 
     msg.channel.send(`Now playing **${song.name}**`);
-    return this.streamSong({ textChannel, connection, song });
+    return this.streamSong({ connection, song });
   }
 
   public async skip(msg: Msg): Promise<any> {
@@ -61,7 +61,7 @@ export class SoundPlayer {
     this.endDispatcher();
   }
 
-  private streamSong({ connection, textChannel, song }: StreamSongOpts) {
+  private streamSong({ connection, song }: StreamSongOpts) {
     this.queue.currentSong = song;
     this.isPlaying = true;
     this.voiceConnection = connection;
@@ -72,18 +72,7 @@ export class SoundPlayer {
         logger.info(`Bot playing ${song.name} on ${connection.channel.id}.`);
       })
       .on("finish", () => {
-        this.queue.lastSong = this.queue.currentSong;
-        this.queue.currentSong = undefined;
-
-        this.queue.currentSong = undefined;
-
-        if (!this.queue.isEmpty()) {
-          const nextSong = this.queue.getSong();
-          if (nextSong) {
-            return this.streamSong({ connection, textChannel, song: nextSong });
-          }
-        }
-        this.isPlaying = false;
+        this.handleSongEnd(connection);
       });
   }
 
@@ -99,6 +88,21 @@ export class SoundPlayer {
       connection = msg.guild?.voice?.connection;
     }
     return connection;
+  }
+
+  private handleSongEnd(connection: VoiceConnection) {
+    this.queue.lastSong = this.queue.currentSong;
+    this.queue.currentSong = undefined;
+
+    this.queue.currentSong = undefined;
+
+    if (!this.queue.isEmpty()) {
+      const nextSong = this.queue.getSong();
+      if (nextSong) {
+        return this.streamSong({ connection, song: nextSong });
+      }
+    }
+    this.isPlaying = false;
   }
 
   private endDispatcher() {
@@ -122,6 +126,5 @@ export type PlayMode = "queue" | "radio";
 
 interface StreamSongOpts {
   song: Song;
-  textChannel: MsgChannel;
   connection: VoiceConnection;
 }
