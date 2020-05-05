@@ -1,6 +1,6 @@
 import { MusicQueue } from "./queue";
 import { StreamDispatcher, VoiceConnection } from "discord.js";
-import { Msg, MsgChannel } from "../../types";
+import { Msg } from "../../types";
 import { Song } from "./song";
 import { joinChannel } from "./utils";
 import logger from "../../logger";
