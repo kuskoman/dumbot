@@ -72,14 +72,7 @@ export class SoundPlayer {
         logger.info(`Bot playing ${song.name} on ${connection.channel.id}.`);
       })
       .on("finish", () => {
-        console.log("finish");
         this.handleSongEnd(connection);
-      })
-      .on("close", () => {
-        console.log("close");
-      })
-      .on("error", () => {
-        console.log("error");
       });
   }
 
