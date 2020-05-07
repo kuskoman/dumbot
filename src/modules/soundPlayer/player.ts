@@ -65,9 +65,10 @@ export class SoundPlayer {
     this.queue.currentSong = song;
     this.isPlaying = true;
     this.voiceConnection = connection;
+    const stream = song.getStream();
 
     this.dispatcher = connection
-      .play(song.getStream(), song.options)
+      .play(stream, song.options)
       .on("start", () => {
         logger.info(`Bot playing ${song.name} on ${connection.channel.id}.`);
       })

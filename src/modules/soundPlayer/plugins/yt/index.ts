@@ -4,6 +4,7 @@ import { extractYouTubeLink } from "./utils";
 import { getInfo } from "ytdl-core";
 import { getSongDataFromYT } from "./search";
 import ytdl from "ytdl-core";
+import logger from "../../../../logger";
 
 // regex source: https://stackoverflow.com/questions/3717115/regular-expression-for-youtube-links
 export const YT_REGEX = /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/;
